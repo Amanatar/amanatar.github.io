@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="obsidian">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aman Atar — Quantitative Systems &amp; Machine Learning Engineer</title>
+  <meta name="description" content="Personal monograph of Aman Atar: auditable quantitative systems, empirical deep learning surrogates, and agentic reasoning architectures from first principles.">
+  <meta name="author" content="Aman Atar">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Aman Atar — Quantitative Systems &amp; Machine Learning Engineer">
+  <meta property="og:description" content="Auditable quantitative systems, empirical deep learning surrogates, and agentic reasoning architectures from first principles.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amanatar.github.io">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts: Instrument Serif, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX CSS loaded BEFORE scripts to ensure MathML is visually hidden and zero double-render occurs -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderKatexMath()"></script>
+
+  <!-- Monograph Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Instant Theme Initializer to Prevent Flash of Unstyled Theme -->
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('amanatar_theme');
+        if (savedTheme === 'parchment' || savedTheme === 'obsidian') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Minimal Top Navigation Bar -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <a href="#" class="brand-link">Aman Atar</a>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span>Maharashtra, IN &middot; <span id="ist-clock">--:-- IST</span></span>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Main Navigation">
+        <a href="#lab" class="nav-link">Lab</a>
+        <a href="#essays" class="nav-link">Notes</a>
+        <a href="#artifacts" class="nav-link">Artifacts</a>
+        <a href="#ledger" class="nav-link">Ledger</a>
+        <a href="#interests" class="nav-link">Shelf</a>
+        <a href="#contact" class="nav-link">Signal</a>
+        <button id="cmd-palette-btn" class="cmd-pill" type="button" aria-label="Open command palette">
+          <span class="cmd-key">/</span>
+          <span>Command</span>
+        </button>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle visual theme" type="button">
+          <span id="theme-icon">[O]</span>
+          <span id="theme-text">Obsidian</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero with Interactive Stochastic Background Canvas -->
+  <section class="hero" id="hero">
+    <div class="hero-canvas-wrap" aria-hidden="true">
+      <canvas id="stochastic-canvas"></canvas>
+    </div>
+    <div class="container hero-content">
+      <p class="epigraph">&ldquo;The hidden harmony is stronger than the obvious.&rdquo; &mdash; Heraclitus, Fragment B54</p>
+      <h1 class="hero-title serif">Building auditable quantitative systems, empirical deep learning surrogates, and agentic reasoning architectures from first principles.</h1>
+      <p class="hero-bio">
+        Quantitative Systems &amp; Machine Learning Engineer based in India. My work focuses on point-in-time financial econometrics, differential machine learning under Sobolev constraints, and grounded agentic retrieval for dense institutional filings.
+      </p>
+      <div class="hero-meta">
+        <span class="meta-chip meta-chip-accent">Kaggle Notebooks Expert &middot; #30 Worldwide / 58,650+ (Top 0.05%, Peak #28 &middot; 40 Medals &middot; 2,800+ Upvotes)</span>
+        <span class="meta-chip">MScFE Candidate &middot; WorldQuant University</span>
+        <span class="meta-chip">WorldQuant BRAIN Gold Level (Systematic Alpha Research)</span>
+        <span class="meta-chip">AI, ML &amp; Autonomous Navigation &middot; IIT Hyderabad</span>
+        <span class="meta-chip">10/10 Public Repos Linux CI Verified</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- Interactive Live Stochastic & Causality Lab -->
+    <section id="lab" class="lab-widget" aria-label="Interactive Stochastic Simulation Lab">
+      <div class="lab-header">
+        <div class="lab-title-group">
+          <h2 class="lab-title serif">Live Stochastic &amp; Causality Lab</h2>
+          <span class="essay-math-badge">Bates SVJD &middot; Conformal Filtration Invariance</span>
+        </div>
+        <div class="lab-btn-group" role="group" aria-label="Filtration Mode Toggle">
+          <button id="lab-btn-causal" class="lab-toggle-btn is-active" type="button">Causal Point-in-Time ($\mathcal{F}_t$)</button>
+          <button id="lab-btn-leaked" class="lab-toggle-btn" type="button">Lookahead Leaked ($\mathcal{F}_{t+k}$)</button>
+        </div>
+      </div>
+
+      <div class="lab-canvas-container">
+        <canvas id="lab-canvas"></canvas>
+      </div>
+
+      <div class="lab-controls-panel">
+        <div class="lab-controls-row">
+          <div class="lab-sliders-row">
+            <div class="lab-slider-group">
+              <label for="lab-slider-jump">Jump Intensity ($\lambda$): <strong id="lab-val-jump">1.2</strong></label>
+              <input id="lab-slider-jump" type="range" min="0.0" max="3.0" step="0.1" value="1.2">
+            </div>
+            <div class="lab-slider-group">
+              <label for="lab-slider-vol">Regime Volatility ($\sigma$): <strong id="lab-val-vol">28%</strong></label>
+              <input id="lab-slider-vol" type="range" min="10" max="65" step="1" value="28">
+            </div>
+          </div>
+          <button id="lab-btn-seed" class="lab-btn-seed" type="button">&circlearrowright; Re-seed Paths</button>
+        </div>
+
+        <div class="lab-metrics-bar">
+          <div class="metric-item-group">
+            <span class="metric-item-label">Filtration State:</span>
+            <span id="metric-lab-mode" class="metric-item-value success">Point-in-Time $\mathcal{F}_t$ [Causal]</span>
+          </div>
+          <div class="metric-item-group">
+            <span class="metric-item-label">Empirical Coverage:</span>
+            <span id="metric-lab-coverage" class="metric-item-value success">91.4%</span>
+            <span class="metric-item-label">(Target 90%)</span>
+          </div>
+          <div class="metric-item-group">
+            <span class="metric-item-label">Max Drawdown:</span>
+            <span id="metric-lab-drawdown" class="metric-item-value">-14.2%</span>
+          </div>
+          <div class="metric-item-group">
+            <span class="metric-item-label">Regime:</span>
+            <span id="metric-lab-regime" class="metric-item-value">Low Vol Steady Drift</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section I: First Principles & Field Notes -->
+    <section id="essays" class="section-block">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Section I &middot; Epistemic Foundations</div>
+          <h2 class="section-title serif">First Principles &amp; Field Notes</h2>
+          <p class="section-desc">Monograph essays on temporal filtration, non-stationary market regimes, and finite-sample epistemic calibration.</p>
+        </div>
+      </div>
+
+      <div class="essays-stack">
+
+        <!-- Essay 01 -->
+        <article class="essay-card is-expanded" id="essay-01">
+          <div class="essay-summary" role="button" tabindex="0" aria-expanded="true">
+            <div class="essay-title-wrap">
+              <span class="essay-idx">01</span>
+              <h3 class="essay-heading">Temporal Asymmetry &amp; The Illusion of Hindsight</h3>
+              <span class="essay-math-badge">Filtration $\mathcal{F}_t$</span>
+            </div>
+            <span class="essay-indicator" aria-hidden="true">+</span>
+          </div>
+          <div class="essay-content">
+            <div class="essay-prose">
+              <blockquote>
+                &ldquo;Life can only be understood backward; but it must be lived forward.&rdquo; &mdash; S&oslash;ren Kierkegaard
+              </blockquote>
+              <p>
+                In classical mechanics, equations run cleanly in reverse; in financial markets, time has teeth. Most failed machine learning in finance violates this asymmetry silently. Center a rolling window by mistake, fit a scaler across the full dataset, or select features using tomorrow&rsquo;s volatility regime, and the historical matrix quietly whispers the future to the past.
+              </p>
+              <p>
+                The backtest looks effortless in a notebook; live capital pays the tuition. In <strong>TRACE-Fin</strong>, causal filtration ($\mathcal{F}_t \subset \mathcal{F}_{t+\Delta t}$) is treated not as data cleaning, but as an ethical boundary on what an algorithm is permitted to know at instant $t$.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Essay 02 -->
+        <article class="essay-card" id="essay-02">
+          <div class="essay-summary" role="button" tabindex="0" aria-expanded="false">
+            <div class="essay-title-wrap">
+              <span class="essay-idx">02</span>
+              <h3 class="essay-heading">The Quiet Invariant Beneath Regime Shifts</h3>
+              <span class="essay-math-badge">Jump Diffusions &middot; $dS_t$</span>
+            </div>
+            <span class="essay-indicator" aria-hidden="true">+</span>
+          </div>
+          <div class="essay-content">
+            <div class="essay-prose">
+              <blockquote>
+                &ldquo;Do not expect Plato&rsquo;s Republic; be content if the smallest thing moves forward, and treat even the shock as part of nature.&rdquo; &mdash; after Marcus Aurelius, <em>Meditations</em>
+              </blockquote>
+              <p>
+                Noise shouts; structure whispers. Prolonged calm seduces statistical models into assuming Gaussian tails and stationary correlations&mdash;right until a liquidity shock breaks every correlation at once. Rather than fitting harder to fair weather, durable quantitative systems prepare for structural breaks.
+              </p>
+              <p>
+                In practice, this means pricing jump intensity explicitly under Bates SVJD dynamics ($dS_t$) instead of smooth Brownian motion alone, detecting regime transitions early, and bounding worst-case drawdowns before chasing return.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Essay 03 -->
+        <article class="essay-card" id="essay-03">
+          <div class="essay-summary" role="button" tabindex="0" aria-expanded="false">
+            <div class="essay-title-wrap">
+              <span class="essay-idx">03</span>
+              <h3 class="essay-heading">The Discipline of Calibrated Doubt</h3>
+              <span class="essay-math-badge">Conformal Bounds &middot; $1 - \alpha$</span>
+            </div>
+            <span class="essay-indicator" aria-hidden="true">+</span>
+          </div>
+          <div class="essay-content">
+            <div class="essay-prose">
+              <blockquote>
+                &ldquo;Whenever a theory appears to you as the only possible one, take this as a sign that you have neither understood the theory nor the problem.&rdquo; &mdash; Karl Popper
+              </blockquote>
+              <p>
+                Fluency is not truth. A neural network or large language model outputs a fabricated figure from a 10-K footnote with the exact same confidence as an audited fact. Point predictions without uncertainty bounds are theater.
+              </p>
+              <p>
+                Scientific rigor begins the moment a system states&mdash;mathematically&mdash;how wrong it might be: valid finite-sample $1 - \alpha$ conformal intervals, Sobolev supervision against exact analytical sensitivities ($\partial V / \partial S$), and retrieval pipelines (<strong>FinFaithful-RAG</strong>) forced to anchor every claim in primary filings.
+              </p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Section II: Selected Artifacts (The Systems Monograph) -->
+    <section id="artifacts" class="section-block">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Section II &middot; Production Architectures</div>
+          <h2 class="section-title serif">Selected Artifacts</h2>
+          <p class="section-desc">Grounded quantitative systems, differential ML surrogates, and cloud inference pipelines verified on fresh Linux CI runners.</p>
+        </div>
+      </div>
+
+      <div class="artifacts-list">
+
+        <!-- Artifact 01: TRACE-Fin -->
+        <div class="artifact-row">
+          <div class="artifact-top">
+            <div class="artifact-id-title">
+              <span class="artifact-num">01</span>
+              <h3 class="artifact-title">TRACE-Fin: Conformal Econometric Forecasting</h3>
+            </div>
+            <a href="https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting" target="_blank" rel="noopener noreferrer" class="artifact-repo-link">
+              <span>auditable-regime-aware-agentic-forecasting</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+          <p class="artifact-desc">
+            Timestamp-Restricted Agentic Conformal Econometrics. Point-in-time invariant regime-switching pipeline with automated leak-detection, strict causal feature filtration, and calibrated 90% ($\alpha = 0.10$) conformal prediction intervals generated in 0.04s.
+          </p>
+          <div class="artifact-footer">
+            <div class="artifact-metrics">
+              <span class="metric-pill metric-highlight">0 Lookahead Leakage</span>
+              <span class="metric-pill">0.04s Conformal Calibration</span>
+              <span class="metric-pill">HMM Regime Switching</span>
+              <span class="metric-pill">Ubuntu 24.04 Verified</span>
+            </div>
+            <div class="artifact-tags">
+              <span class="tag-code">Python</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">PyTorch</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">scikit-learn</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Conformal Prediction</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">GitHub Actions CI</span>
+            </div>
+          </div>
+
+          <!-- CI Proof Drawer 01 -->
+          <div class="ci-proof-wrap">
+            <button class="ci-drawer-btn" type="button" data-drawer="ci-drawer-01">
+              <span>[Inspect Ubuntu 24.04 CI Proof]</span>
+              <span aria-hidden="true">&darr;</span>
+            </button>
+            <div id="ci-drawer-01" class="ci-drawer-content">
+              <div class="ci-drawer-inner">
+                <div class="ci-terminal-box"><div class="ci-term-header"># GitHub Actions Runner: Ubuntu 24.04 LTS | Python 3.11.17 | Run #41193425227</div>tests/test_vm_execution.py::test_cutoff_validation
+[VM EXECUTION] <span class="ci-term-highlight">Cutoff validator strictly enforced: 1/2 rows accepted, 0 lookahead leakage.</span>
+tests/test_vm_execution.py::test_regime_and_uncertainty_forecasting
+[VM EXECUTION] Detected Market Regime: high_volatility (Shift Probability: 1.0000)
+[VM EXECUTION] 5-Day Return Forecast: [103.5336, 105.0663, 106.5989, 108.1315, 109.6642]
+[VM EXECUTION] Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
+============================== <span class="ci-term-highlight">7 passed in 0.04s</span> ===============================</div>
+                <div class="ci-link-row">
+                  <a href="https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting/actions/runs/41193425227" target="_blank" rel="noopener noreferrer" class="ci-workflow-link">
+                    <span>View Run #41193425227 on GitHub Actions</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artifact 02: Neural Bates DML -->
+        <div class="artifact-row">
+          <div class="artifact-top">
+            <div class="artifact-id-title">
+              <span class="artifact-num">02</span>
+              <h3 class="artifact-title">Neural Bates: Sobolev Differential Machine Learning</h3>
+            </div>
+            <a href="https://github.com/Amanatar/neural-bates-dml" target="_blank" rel="noopener noreferrer" class="artifact-repo-link">
+              <span>neural-bates-dml</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+          <p class="artifact-desc">
+            Twin-network Sobolev Differential Machine Learning surrogate for 10-dimensional Bates stochastic volatility jump-diffusion option pricing. Supervised by exact analytic Jacobians, eliminating gradient drift under Carr-Madan FFT Greeks.
+          </p>
+          <div class="artifact-footer">
+            <div class="artifact-metrics">
+              <span class="metric-pill metric-highlight">0.40 ms / 128-Option CPU Batch</span>
+              <span class="metric-pill">10-D Bates SVJD Space</span>
+              <span class="metric-pill">Zero NaN Jacobians</span>
+              <span class="metric-pill">Ubuntu 24.04 Verified</span>
+            </div>
+            <div class="artifact-tags">
+              <span class="tag-code">PyTorch</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Sobolev Loss</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Carr-Madan FFT</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Differential ML</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Zero NaN Audit</span>
+            </div>
+          </div>
+
+          <!-- CI Proof Drawer 02 -->
+          <div class="ci-proof-wrap">
+            <button class="ci-drawer-btn" type="button" data-drawer="ci-drawer-02">
+              <span>[Inspect Ubuntu 24.04 CI Proof]</span>
+              <span aria-hidden="true">&darr;</span>
+            </button>
+            <div id="ci-drawer-02" class="ci-drawer-content">
+              <div class="ci-drawer-inner">
+                <div class="ci-terminal-box"><div class="ci-term-header"># GitHub Actions Runner: Ubuntu 24.04 LTS | Python 3.11.17 | Run #41193397993</div>tests/test_vm_execution.py::test_bates_dml_synthetic_training
+[VM EXECUTION] Synthetic Bates SVJD Option Surface: 128 contracts generated across 10-D parameter space.
+[VM EXECUTION] Epoch 5 - Price Loss: 0.916830 | Greek Loss: 0.013672 | Total Sobolev: 0.923666
+[VM EXECUTION] <span class="ci-term-highlight">Sobolev DML CPU Single-Batch (128 options) Latency: 0.40 ms</span>
+[VM EXECUTION] <span class="ci-term-highlight">NaN/Inf Audit: ZERO NaNs in model weights, forward predictions, or Jacobians.</span>
+============================== <span class="ci-term-highlight">1 passed in 2.27s</span> ===============================</div>
+                <div class="ci-link-row">
+                  <a href="https://github.com/Amanatar/neural-bates-dml/actions/runs/41193397993" target="_blank" rel="noopener noreferrer" class="ci-workflow-link">
+                    <span>View Run #41193397993 on GitHub Actions</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artifact 03: FinFaithful-RAG -->
+        <div class="artifact-row">
+          <div class="artifact-top">
+            <div class="artifact-id-title">
+              <span class="artifact-num">03</span>
+              <h3 class="artifact-title">FinFaithful-RAG: Grounded SEC EDGAR Intelligence</h3>
+            </div>
+            <a href="https://github.com/Amanatar/FinFaithful-RAG" target="_blank" rel="noopener noreferrer" class="artifact-repo-link">
+              <span>FinFaithful-RAG</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+          <p class="artifact-desc">
+            Auditable SEC EDGAR 10-K Retrieval-Augmented Generation benchmark. Dense FAISS vector retrieval coupled with structured citation lineage, lifting factual faithfulness across complex footnotes and multi-year comparative disclosures.
+          </p>
+          <div class="artifact-footer">
+            <div class="artifact-metrics">
+              <span class="metric-pill metric-highlight">~8 ms FAISS Lookup</span>
+              <span class="metric-pill">1.67 &rarr; 5.00 / 5.0 Faithfulness (3.0x)</span>
+              <span class="metric-pill">SEC EDGAR 10-K + LLM Judge</span>
+              <span class="metric-pill">Ubuntu 24.04 Verified</span>
+            </div>
+            <div class="artifact-tags">
+              <span class="tag-code">FAISS</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">SentenceTransformers</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">SEC EDGAR 10-K</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">LLM Judge</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Pytest CI</span>
+            </div>
+          </div>
+
+          <!-- CI Proof Drawer 03 -->
+          <div class="ci-proof-wrap">
+            <button class="ci-drawer-btn" type="button" data-drawer="ci-drawer-03">
+              <span>[Inspect Ubuntu 24.04 CI Proof]</span>
+              <span aria-hidden="true">&darr;</span>
+            </button>
+            <div id="ci-drawer-03" class="ci-drawer-content">
+              <div class="ci-drawer-inner">
+                <div class="ci-terminal-box"><div class="ci-term-header"># GitHub Actions Runner: Ubuntu 24.04 LTS | Python 3.11.17 | Run #41193445108</div>tests/test_vm_execution.py::test_sec_indexing_and_retrieval
+[VM EXECUTION] SEC 10-K Corpus Indexed: 4 financial chunks in FAISS (dim=384) & TF-IDF.
+[VM EXECUTION] Query 1: 'What was the total net sales revenue?'
+[VM EXECUTION] -> Top-1 Chunk [0]: 'Apple Inc. Total net sales were $383,285 million in fiscal 2023...' <span class="ci-term-highlight">(Latency: 8.06 ms)</span>
+[VM EXECUTION] Query 2: 'What drove the growth in cloud revenue?'
+[VM EXECUTION] -> Top-1 Chunk [1]: 'Microsoft Corporation revenue increased $18.5 billion or 10%...' <span class="ci-term-highlight">(Latency: 7.81 ms)</span>
+============================== <span class="ci-term-highlight">2 passed in 8.88s</span> ===============================</div>
+                <div class="ci-link-row">
+                  <a href="https://github.com/Amanatar/FinFaithful-RAG/actions/runs/41193445108" target="_blank" rel="noopener noreferrer" class="ci-workflow-link">
+                    <span>View Run #41193445108 on GitHub Actions</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artifact 04: Resilient Cloud Inference & MLOps -->
+        <div class="artifact-row">
+          <div class="artifact-top">
+            <div class="artifact-id-title">
+              <span class="artifact-num">04</span>
+              <h3 class="artifact-title">Resilient Multi-Provider Cloud Inference &amp; MLOps</h3>
+            </div>
+            <a href="https://github.com/Amanatar/IRL_Data_Science_-_GenAi_Internship" target="_blank" rel="noopener noreferrer" class="artifact-repo-link">
+              <span>IRL_Data_Science_-_GenAi_Internship</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+          <p class="artifact-desc">
+            Production multi-provider financial reasoning service on AWS EC2. Active circuit breaker intercepting Google Gemini API HTTP 429 quota exhaustion and failing over to NVIDIA NIM (Kimi &amp; Llama 3.1 70B) with Amazon Bedrock RAG and MLflow tracking.
+          </p>
+          <div class="artifact-footer">
+            <div class="artifact-metrics">
+              <span class="metric-pill metric-highlight">Sub-second Failover</span>
+              <span class="metric-pill">HTTP 429 Circuit Breaker</span>
+              <span class="metric-pill">MLflow Tracking</span>
+              <span class="metric-pill">Ubuntu 24.04 Verified</span>
+            </div>
+            <div class="artifact-tags">
+              <span class="tag-code">Flask</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Streamlit</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Gunicorn</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">AWS EC2</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">NVIDIA NIM</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Amazon Bedrock</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">MLflow</span>
+            </div>
+          </div>
+
+          <!-- CI Proof Drawer 04 -->
+          <div class="ci-proof-wrap">
+            <button class="ci-drawer-btn" type="button" data-drawer="ci-drawer-04">
+              <span>[Inspect Ubuntu 24.04 CI Proof]</span>
+              <span aria-hidden="true">&darr;</span>
+            </button>
+            <div id="ci-drawer-04" class="ci-drawer-content">
+              <div class="ci-drawer-inner">
+                <div class="ci-terminal-box"><div class="ci-term-header"># GitHub Actions Runner: Ubuntu 24.04 LTS | Python 3.11.17 | Run #41193499855</div>tests/test_vm_execution.py::test_circuit_breaker_failover
+[VM EXECUTION] Dual-LLM Circuit Breaker: Primary Gemini throttled (simulated 429 ResourceExhausted).
+[VM EXECUTION] -> <span class="ci-term-highlight">Successfully failed over to Provider: NVIDIA-NIM (Model: meta/llama-3.1-70b-instruct)</span>
+[VM EXECUTION] -> Failover Response: '[FinAdvisor via NVIDIA NIM Fallback]: Debt Service Coverage Ratio (DSCR)...'
+======================== <span class="ci-term-highlight">3 passed, 3 warnings in 1.47s</span> =========================</div>
+                <div class="ci-link-row">
+                  <a href="https://github.com/Amanatar/IRL_Data_Science_-_GenAi_Internship/actions/runs/41193499855" target="_blank" rel="noopener noreferrer" class="ci-workflow-link">
+                    <span>View Run #41193499855 on GitHub Actions</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artifact 05: Empirical Benchmarks -->
+        <div class="artifact-row">
+          <div class="artifact-top">
+            <div class="artifact-id-title">
+              <span class="artifact-num">05</span>
+              <h3 class="artifact-title">Global Machine Learning Benchmarks &amp; Systematic Alpha Research</h3>
+            </div>
+            <span class="tag-code">Kaggle &amp; WorldQuant BRAIN</span>
+          </div>
+          <p class="artifact-desc">
+            Competitive algorithmic modeling and systematic alpha formulation across rigorous international benchmarks. Focus on cross-entropy calibration, turnover-constrained equity alphas, and reproducible reasoning notebooks.
+          </p>
+          <div class="artifact-footer">
+            <div class="artifact-metrics">
+              <span class="metric-pill metric-highlight">#30 Worldwide / 58,650+ (Top 0.05%)</span>
+              <span class="metric-pill">40 Kaggle Medals (4 Gold, 5 Silver)</span>
+              <span class="metric-pill">WorldQuant BRAIN Gold Level</span>
+              <span class="metric-pill">Top 30 Benchmark (ans-verifys)</span>
+            </div>
+            <div class="artifact-tags">
+              <span class="tag-code">Kaggle Notebooks Expert</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">Alpha Formulation</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">BRAIN Gold</span>
+              <span class="tag-code">&middot;</span>
+              <span class="tag-code">IIT Hyderabad</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section III: Intellectual Shelf & Curiosities -->
+    <section id="interests" class="section-block">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Section III &middot; Foundations &amp; Literature</div>
+          <h2 class="section-title serif">Intellectual Shelf &amp; Curiosities</h2>
+          <p class="section-desc">The philosophical traditions, mathematical treatises, and architectural paradigms that inform my engineering practice.</p>
+        </div>
+      </div>
+
+      <div class="shelf-grid">
+
+        <!-- Column 1: Philosophy & Epistemology -->
+        <div class="shelf-card">
+          <div class="shelf-category">Tradition &middot; Epistemology</div>
+          <h3 class="shelf-title">Philosophical Inquiry</h3>
+          <ul class="shelf-list">
+            <li class="shelf-item">
+              <strong>Marcus Aurelius &amp; Epictetus</strong>: Stoic resilience under irreducible market chaos and non-stationary environments.
+            </li>
+            <li class="shelf-item">
+              <strong>Karl Popper</strong>: <em>Conjectures &amp; Refutations</em>; falsification as the supreme arbiter of computational validity.
+            </li>
+            <li class="shelf-item">
+              <strong>S&oslash;ren Kierkegaard</strong>: Existential temporal asymmetry; why life must be lived forward and understood backward.
+            </li>
+            <li class="shelf-item">
+              <strong>Daniel Kahneman</strong>: Cognitive heuristics, noise vs. bias decomposition, and calibration under uncertainty.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Mathematics & Computation -->
+        <div class="shelf-card">
+          <div class="shelf-category">Formulation &middot; Theory</div>
+          <h3 class="shelf-title">Mathematical Foundations</h3>
+          <ul class="shelf-list">
+            <li class="shelf-item">
+              <strong>Huge &amp; Savine</strong>: <em>Differential Machine Learning</em>&mdash;Sobolev gradient supervision and arbitrage-free neural surrogates.
+            </li>
+            <li class="shelf-item">
+              <strong>Paul Glasserman</strong>: <em>Monte Carlo Methods in Financial Engineering</em>&mdash;martingales, path generation, and jump diffusions.
+            </li>
+            <li class="shelf-item">
+              <strong>Glenn Shafer &amp; Vladimir Vovk</strong>: <em>Algorithmic Learning in a Random World</em>&mdash;foundations of conformal prediction.
+            </li>
+            <li class="shelf-item">
+              <strong>Ethem Alpaydin</strong>: Statistical machine learning, nonparametric Bayesian inference, and ensemble dynamics.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Autonomous & Embodied Systems -->
+        <div class="shelf-card">
+          <div class="shelf-category">Architecture &middot; Systems</div>
+          <h3 class="shelf-title">Autonomous Systems</h3>
+          <ul class="shelf-list">
+            <li class="shelf-item">
+              <strong>Agentic Cognitive Architectures</strong>: State machines, working memory hierarchies, and autonomous verification invariants.
+            </li>
+            <li class="shelf-item">
+              <strong>Non-Stationary MDPs</strong>: Dynamic decision-making and policy adaptation under shifting environmental regimes.
+            </li>
+            <li class="shelf-item">
+              <strong>Grounded Tool Execution</strong>: Deterministic circuit breakers, schema enforcement, and auditable citation lineage.
+            </li>
+            <li class="shelf-item">
+              <strong>Differential Computing</strong>: High-performance CPU/GPU tensor kernels, vectorized ODE/PDE solvers, and SIMD execution.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section IV: Living Ledger — Now & Open Problems -->
+    <section id="ledger" class="section-block">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Section IV &middot; Living Ledger</div>
+          <h2 class="section-title serif">Now &amp; Open Problems</h2>
+          <p class="section-desc">Active research initiatives, verified deliverables, and upcoming mathematical conjectures.</p>
+        </div>
+      </div>
+
+      <div class="ledger-filters" role="group" aria-label="Filter research ledger">
+        <button class="ledger-filter-btn is-active" type="button" data-filter="all">All</button>
+        <button class="ledger-filter-btn" type="button" data-filter="active">Active Research</button>
+        <button class="ledger-filter-btn" type="button" data-filter="shipped">Shipped &amp; Verified</button>
+        <button class="ledger-filter-btn" type="button" data-filter="horizon">Next Horizon</button>
+      </div>
+
+      <div class="ledger-list">
+
+        <!-- Item 01 -->
+        <div class="ledger-card" data-category="shipped">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">10/10 Public Repository Reproducibility Overhaul</h3>
+            <span class="ledger-status-badge badge-shipped">[SHIPPED &middot; CI PASS]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Deterministic <code>ubuntu-latest</code> GitHub Actions pipelines across option pricing, conformal econometrics, and financial RAG with pinned dependencies and zero notebook execution warnings.
+          </p>
+        </div>
+
+        <!-- Item 02 -->
+        <div class="ledger-card" data-category="shipped">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">Twin-Net Sobolev Surrogate for 10-D Bates SVJD</h3>
+            <span class="ledger-status-badge badge-shipped">[SHIPPED &middot; BENCHMARKED]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Sub-millisecond (<code>0.40 ms</code>) CPU batch inference supervised on Carr-Madan FFT Greeks, eliminating gradient drift with zero NaNs across Jacobian sensitivities.
+          </p>
+        </div>
+
+        <!-- Item 03 -->
+        <div class="ledger-card" data-category="active">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">Multi-Timeframe Equity Alpha Distillation &amp; Execution</h3>
+            <span class="ledger-status-badge badge-active">[ACTIVE &middot; IN PROGRESS]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Teacher-student distillation from time-series foundation models into LightGBM meta-stackers with transaction-cost gating and point-in-time cross-validation splits.
+          </p>
+        </div>
+
+        <!-- Item 04 -->
+        <div class="ledger-card" data-category="active">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">MSc in Financial Engineering (WorldQuant University) &amp; BRAIN Alpha Portfolio</h3>
+            <span class="ledger-status-badge badge-active">[ACTIVE &middot; IN PROGRESS]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Expanding low-correlation, turnover-constrained cross-sectional equity signals beyond Gold tier, integrating stochastic volatility models and multi-factor risk neutralizations.
+          </p>
+        </div>
+
+        <!-- Item 05 -->
+        <div class="ledger-card" data-category="horizon">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">10th Silver+ Kaggle Notebook Medal &rarr; Kaggle Master Tier</h3>
+            <span class="ledger-status-badge badge-horizon">[NEXT HORIZON &middot; CONJECTURE]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Currently at 9 Silver+ medals (4 Gold, 5 Silver; #30 Worldwide); engineering reproducible reasoning-verification and geometric-fusion notebooks for open research benchmarks.
+          </p>
+        </div>
+
+        <!-- Item 06 -->
+        <div class="ledger-card" data-category="horizon">
+          <div class="ledger-card-header">
+            <h3 class="ledger-card-title">Rough Volatility &amp; Regime-Conditional Conformal Surfaces</h3>
+            <span class="ledger-status-badge badge-horizon">[NEXT HORIZON &middot; CONJECTURE]</span>
+          </div>
+          <p class="ledger-card-desc">
+            Extending adaptive conformal calibration to intraday implied-volatility surface jumps and fractional Brownian motion ($H &lt; 0.5$) under severe market turbulence.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Section V: Colophon & Quiet Signal -->
+  <footer id="contact" class="colophon-section">
+    <div class="container">
+      <div class="colophon-box">
+        <p class="colophon-lead serif">
+          This space is maintained as a living monograph of quantitative systems, empirical experiments, and philosophical inquiries. Designed with zero bloat, pure type, and deterministic mathematical foundations.
+        </p>
+
+        <div class="links-grid">
+          <a href="https://github.com/Amanatar" target="_blank" rel="noopener noreferrer" class="link-item">
+            <span>github.com/Amanatar</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a href="https://www.kaggle.com/amanatar" target="_blank" rel="noopener noreferrer" class="link-item">
+            <span>kaggle.com/amanatar</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a href="https://www.linkedin.com/in/aman-atar/" target="_blank" rel="noopener noreferrer" class="link-item">
+            <span>linkedin.com/in/aman-atar</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <button class="copy-email-btn link-item" id="btn-copy-email" type="button" aria-label="Copy email address to clipboard">
+            <span>ataraman9@gmail.com</span>
+            <span class="copy-tooltip" id="email-tooltip">Copied</span>
+            <span class="link-arrow" aria-hidden="true">&copy;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-sub">
+        <span>&copy; 2026 Aman Atar &middot; Built with semantic HTML, CSS &amp; KaTeX</span>
+        <span>10/10 Linux CI Verified &middot; Zero Bloat</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Command Palette Modal -->
+  <div id="cmd-modal" class="cmd-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="cmd-dialog">
+      <div class="cmd-search-wrap">
+        <span class="cmd-search-icon">&gt;</span>
+        <input id="cmd-input" class="cmd-input" type="text" placeholder="Jump to essay, lab, artifact, or run command..." autocomplete="off">
+        <button id="cmd-close-btn" class="cmd-pill" type="button" aria-label="Close Command Palette">Esc</button>
+      </div>
+      <ul id="cmd-results" class="cmd-results-list" role="listbox">
+        <!-- Generated dynamically via JS -->
+      </ul>
+      <div class="cmd-footer">
+        <span>Use &uarr; &darr; to navigate</span>
+        <span>Enter to select &middot; Esc to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="canvas.js" defer></script>
+  <script src="lab.js" defer></script>
+  <script>
+    // Live IST Clock
+    function updateISTClock() {
+      try {
+        var now = new Date();
+        var istString = now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+        var clockEl = document.getElementById('ist-clock');
+        if (clockEl) {
+          clockEl.textContent = istString + ' IST';
+        }
+      } catch (e) {
+        var clockFallback = document.getElementById('ist-clock');
+        if (clockFallback) clockFallback.textContent = 'IST Active';
+      }
+    }
+    updateISTClock();
+    setInterval(updateISTClock, 15000);
+
+    // Theme Switcher Logic (Obsidian <-> Parchment)
+    (function () {
+      var toggleBtn = document.getElementById('theme-toggle');
+      var iconEl = document.getElementById('theme-icon');
+      var textEl = document.getElementById('theme-text');
+
+      function syncToggleState(theme) {
+        if (!iconEl || !textEl) return;
+        if (theme === 'parchment') {
+          iconEl.textContent = '[P]';
+          textEl.textContent = 'Parchment';
+        } else {
+          iconEl.textContent = '[O]';
+          textEl.textContent = 'Obsidian';
+        }
+      }
+
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'obsidian';
+      syncToggleState(currentTheme);
+
+      window.switchTheme = function (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        try {
+          localStorage.setItem('amanatar_theme', theme);
+        } catch (e) {}
+        syncToggleState(theme);
+      };
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function () {
+          var activeTheme = document.documentElement.getAttribute('data-theme') || 'obsidian';
+          var nextTheme = activeTheme === 'obsidian' ? 'parchment' : 'obsidian';
+          window.switchTheme(nextTheme);
+        });
+      }
+    })();
+
+    // Expandable Essay Accordions
+    (function () {
+      var cards = document.querySelectorAll('.essay-card');
+      cards.forEach(function (card) {
+        var summary = card.querySelector('.essay-summary');
+        if (!summary) return;
+
+        function toggle() {
+          var isExpanded = card.classList.contains('is-expanded');
+          card.classList.toggle('is-expanded');
+          summary.setAttribute('aria-expanded', !isExpanded);
+        }
+
+        summary.addEventListener('click', toggle);
+        summary.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      });
+    })();
+
+    // CI Proof Drawer Accordions
+    (function () {
+      var drawerBtns = document.querySelectorAll('.ci-drawer-btn');
+      drawerBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var targetId = btn.getAttribute('data-drawer');
+          var drawer = document.getElementById(targetId);
+          if (drawer) {
+            var isOpen = drawer.classList.contains('is-open');
+            drawer.classList.toggle('is-open');
+            var arrowSpan = btn.querySelector('span:last-child');
+            if (arrowSpan) {
+              arrowSpan.innerHTML = isOpen ? '&darr;' : '&uarr;';
+            }
+          }
+        });
+      });
+    })();
+
+    // Living Ledger Filter Tabs
+    (function () {
+      var filterBtns = document.querySelectorAll('.ledger-filter-btn');
+      var cards = document.querySelectorAll('.ledger-card');
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          filterBtns.forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+
+          var filter = btn.getAttribute('data-filter');
+          cards.forEach(function (card) {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+
+    // 1-Click Copy Email Micro-Interaction
+    (function () {
+      var copyBtn = document.getElementById('btn-copy-email');
+      var tooltip = document.getElementById('email-tooltip');
+
+      window.copyEmailAddress = function () {
+        var email = 'ataraman9@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showCopied).catch(fallback);
+        } else {
+          fallback();
+        }
+
+        function showCopied() {
+          if (tooltip) {
+            tooltip.classList.add('show');
+            setTimeout(function () {
+              tooltip.classList.remove('show');
+            }, 2000);
+          }
+        }
+
+        function fallback() {
+          var textArea = document.createElement('textarea');
+          textArea.value = email;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            showCopied();
+          } catch (err) {}
+          document.body.removeChild(textArea);
+        }
+      };
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', window.copyEmailAddress);
+      }
+    })();
+
+    // Keyboard Command Palette
+    (function () {
+      var modal = document.getElementById('cmd-modal');
+      var input = document.getElementById('cmd-input');
+      var resultsList = document.getElementById('cmd-results');
+      var openBtn = document.getElementById('cmd-palette-btn');
+      var closeBtn = document.getElementById('cmd-close-btn');
+
+      var commands = [
+        { cat: 'Nav', label: 'Live Stochastic & Causality Lab', shortcut: '#lab', action: function () { scrollToId('lab'); } },
+        { cat: 'Essay', label: '01 / Temporal Asymmetry & The Illusion of Hindsight', shortcut: '#essay-01', action: function () { scrollToId('essay-01'); } },
+        { cat: 'Essay', label: '02 / The Quiet Invariant Beneath Regime Shifts', shortcut: '#essay-02', action: function () { scrollToId('essay-02'); } },
+        { cat: 'Essay', label: '03 / The Discipline of Calibrated Doubt', shortcut: '#essay-03', action: function () { scrollToId('essay-03'); } },
+        { cat: 'Artifact', label: 'TRACE-Fin: Conformal Econometric Forecasting', shortcut: 'Repo', action: function () { window.open('https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting', '_blank'); } },
+        { cat: 'Artifact', label: 'Neural Bates: Sobolev Differential ML', shortcut: 'Repo', action: function () { window.open('https://github.com/Amanatar/neural-bates-dml', '_blank'); } },
+        { cat: 'Artifact', label: 'FinFaithful-RAG: Grounded SEC EDGAR Intelligence', shortcut: 'Repo', action: function () { window.open('https://github.com/Amanatar/FinFaithful-RAG', '_blank'); } },
+        { cat: 'Artifact', label: 'Resilient Cloud MLOps & Circuit Breaker', shortcut: 'Repo', action: function () { window.open('https://github.com/Amanatar/IRL_Data_Science_-_GenAi_Internship', '_blank'); } },
+        { cat: 'Ledger', label: 'Living Ledger: Now & Open Problems', shortcut: '#ledger', action: function () { scrollToId('ledger'); } },
+        { cat: 'Shelf', label: 'Intellectual Shelf & Curiosities', shortcut: '#interests', action: function () { scrollToId('interests'); } },
+        { cat: 'Action', label: 'Copy Email (ataraman9@gmail.com)', shortcut: 'Copy', action: function () { window.copyEmailAddress(); } },
+        { cat: 'Theme', label: 'Toggle Archival Obsidian Theme', shortcut: 'Dark', action: function () { window.switchTheme('obsidian'); } },
+        { cat: 'Theme', label: 'Toggle Warm Parchment Theme', shortcut: 'Light', action: function () { window.switchTheme('parchment'); } }
+      ];
+
+      var selectedIndex = 0;
+      var filteredCommands = commands.slice();
+
+      function scrollToId(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function renderCommands() {
+        if (!resultsList) return;
+        resultsList.innerHTML = '';
+        if (filteredCommands.length === 0) {
+          var empty = document.createElement('li');
+          empty.className = 'cmd-item';
+          empty.innerHTML = '<span class="cmd-item-label" style="color:var(--text-dim);">No matching commands found</span>';
+          resultsList.appendChild(empty);
+          return;
+        }
+
+        filteredCommands.forEach(function (cmd, idx) {
+          var li = document.createElement('li');
+          li.className = 'cmd-item' + (idx === selectedIndex ? ' is-selected' : '');
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-selected', idx === selectedIndex);
+
+          li.innerHTML = '<div class="cmd-item-left">' +
+            '<span class="cmd-item-cat">' + cmd.cat + '</span>' +
+            '<span class="cmd-item-label">' + cmd.label + '</span>' +
+            '</div>' +
+            '<span class="cmd-item-shortcut">' + cmd.shortcut + '</span>';
+
+          li.addEventListener('click', function () {
+            execute(cmd);
+          });
+          resultsList.appendChild(li);
+        });
+      }
+
+      function execute(cmd) {
+        closeModal();
+        cmd.action();
+      }
+
+      function openModal() {
+        if (!modal) return;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        if (input) {
+          input.value = '';
+          filteredCommands = commands.slice();
+          selectedIndex = 0;
+          renderCommands();
+          setTimeout(function () { input.focus(); }, 50);
+        }
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+      }
+
+      if (input) {
+        input.addEventListener('input', function () {
+          var q = input.value.trim().toLowerCase();
+          filteredCommands = commands.filter(function (cmd) {
+            return cmd.label.toLowerCase().includes(q) || cmd.cat.toLowerCase().includes(q);
+          });
+          selectedIndex = 0;
+          renderCommands();
+        });
+
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex + 1) % Math.max(1, filteredCommands.length);
+            renderCommands();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex - 1 + filteredCommands.length) % Math.max(1, filteredCommands.length);
+            renderCommands();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (filteredCommands[selectedIndex]) {
+              execute(filteredCommands[selectedIndex]);
+            }
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closeModal();
+          }
+        });
+      }
+
+      // Global hotkeys: '/' or Ctrl+K / Cmd+K
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+          closeModal();
+          return;
+        }
+
+        var isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName);
+        if ((e.key === '/' && !isInput) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {
+          e.preventDefault();
+          openModal();
+        }
+      });
+    })();
+
+    // KaTeX Auto-Render Initializer
+    function renderKatexMath() {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          output: 'html',
+          throwOnError: false
+        });
+      }
+    }
+  </script>
+</body>
+</html>
