@@ -3,27 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aman Atar — Quantitative ML, Financial Engineering & Notes</title>
+  <title>Aman Atar — Quantitative ML, Financial Engineering &amp; Notes</title>
   <meta name="description" content="Aman Atar — MScFE student at WorldQuant University, Kaggle Notebooks Expert (#30 Worldwide), building point-in-time financial ML, Differential ML option pricers, and grounded RAG systems." />
-  <meta property="og:title" content="Aman Atar — Quantitative ML & Philosophical Notes" />
+  <link rel="canonical" href="https://amanatar.github.io/" />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Aman Atar — Quantitative ML &amp; Philosophical Notes" />
   <meta property="og:description" content="The hidden harmony is stronger than the obvious. Selected systems, empirical benchmarks, and notes on modeling noisy worlds honestly." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://amanatar.github.io/" />
+  <meta property="og:image" content="https://amanatar.github.io/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Aman Atar — Quantitative ML &amp; Financial Engineering" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Aman Atar — Quantitative ML &amp; Philosophical Notes" />
+  <meta name="twitter:description" content="The hidden harmony is stronger than the obvious. Selected systems, empirical benchmarks, and notes on modeling noisy worlds honestly." />
+  <meta name="twitter:image" content="https://amanatar.github.io/og-card.png" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Non-blocking Google Fonts with Zero-CLS Fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+  </noscript>
+
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured Data (JSON-LD) for Search & Knowledge Graph -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://amanatar.github.io/#person",
+        "name": "Aman Atar",
+        "url": "https://amanatar.github.io/",
+        "jobTitle": "Quantitative Systems & Machine Learning Engineer",
+        "email": "mailto:ataraman9@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Solapur",
+          "addressRegion": "Maharashtra",
+          "addressCountry": "IN"
+        },
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "WorldQuant University",
+            "url": "https://www.wqu.edu"
+          }
+        ],
+        "sameAs": [
+          "https://github.com/Amanatar",
+          "https://www.kaggle.com/amanatar",
+          "https://www.linkedin.com/in/aman-atar"
+        ]
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://amanatar.github.io/#webpage",
+        "url": "https://amanatar.github.io/",
+        "name": "Aman Atar — Quantitative ML, Financial Engineering & Notes",
+        "about": { "@id": "https://amanatar.github.io/#person" },
+        "description": "Selected systems, empirical benchmarks, and notes on modeling noisy worlds honestly."
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "TRACE-Fin",
+        "codeRepository": "https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting",
+        "programmingLanguage": "Python",
+        "author": { "@id": "https://amanatar.github.io/#person" },
+        "description": "Timestamp-Restricted Regime-Aware Forecasting with strict cutoff checks and conformal prediction intervals."
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "Neural Bates DML",
+        "codeRepository": "https://github.com/Amanatar/neural-bates-dml",
+        "programmingLanguage": "Python",
+        "author": { "@id": "https://amanatar.github.io/#person" },
+        "description": "Twin-network PyTorch surrogate for the 10-parameter Bates SVJD model trained with Sobolev differential ML."
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "FinFaithful-RAG",
+        "codeRepository": "https://github.com/Amanatar/FinFaithful-RAG",
+        "programmingLanguage": "Python",
+        "author": { "@id": "https://amanatar.github.io/#person" },
+        "description": "SEC EDGAR 10-K dense FAISS retrieval and LLM-as-a-Judge faithfulness evaluation pipeline."
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+  <!-- Accessibility Skip Link -->
+  <a href="#top" class="skip-link">Skip to main content</a>
+
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#top" class="brand">
         <span class="status-dot" aria-hidden="true"></span>
         <span>Aman Atar</span>
-        <span class="muted mono-hide">· Maharashtra, IN (<span id="ist-clock">--:--</span> IST)</span>
+        <span class="muted mono-hide">· Maharashtra, IN (<span id="ist-clock">IST Active</span>)</span>
       </a>
-      <nav class="nav-links" aria-label="Primary">
+      <nav class="nav-links" aria-label="Primary Navigation">
         <a href="#philosophy">Notes</a>
         <a href="#lab">Intuition</a>
         <a href="#work">Work</a>
@@ -31,6 +123,9 @@
         <a href="#shelf">Shelf</a>
         <button id="cmd-btn" class="ghost-pill" type="button" title="Quick jump (Press /)">
           <span>Jump</span> <kbd>/</kbd>
+        </button>
+        <button type="button" class="ghost-pill print-btn" onclick="window.print()" title="Print or save 1-page executive brief as PDF">
+          <span>Brief</span> <kbd>PDF</kbd>
         </button>
         <button id="theme-toggle" class="ghost-pill" type="button" aria-label="Toggle color theme">
           <span id="theme-label">Paper</span>
@@ -158,62 +253,125 @@
       </div>
     </section>
 
-    <!-- SECTION II: INTERACTIVE INTUITION SKETCH -->
+    <!-- SECTION II: INTERACTIVE QUANT INTUITION LAB (2-TAB SWITCHER) -->
     <section id="lab" class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <span class="kicker">02 · Interactive Intuition Sketch</span>
-          <h2>Why Lookahead Leakage Lies to You</h2>
+          <span class="kicker">02 · Interactive Quant Intuition Lab</span>
+          <h2>Visualizing Causal Boundaries &amp; Volatility Surfaces</h2>
           <p class="section-sub">
-            Toggle between an honest point-in-time model and a future-leaked rolling window across the vertical train/test cutoff, then inject a regime shock to watch what survives out-of-sample.
+            Hands-on numerical experiments: contrast honest point-in-time filtration against lookahead leakage, then inspect how jump-diffusion dynamics shape implied volatility smiles.
           </p>
         </div>
 
         <div class="lab-box">
-          <div class="lab-toolbar">
-            <div class="segmented" role="group" aria-label="Validation mode">
-              <button type="button" class="seg-btn active" data-mode="causal">
-                Honest Point-in-Time (ℱₜ)
-              </button>
-              <button type="button" class="seg-btn" data-mode="leaked">
-                Leaked Window (Peeks at t+k)
-              </button>
+          <!-- MASTER LAB TABS -->
+          <div class="lab-main-tabs" role="tablist" aria-label="Quant intuition experiments">
+            <button type="button" class="tab-pill active" id="tab-btn-leakage" role="tab" aria-selected="true" aria-controls="lab-tab-leakage">
+              01 · Lookahead Leakage vs. Causal ℱₜ (TRACE-Fin)
+            </button>
+            <button type="button" class="tab-pill" id="tab-btn-smile" role="tab" aria-selected="false" aria-controls="lab-tab-smile">
+              02 · Jump-Diffusion Volatility Smile (Neural Bates DML)
+            </button>
+          </div>
+
+          <!-- TAB 1: LOOKAHEAD LEAKAGE -->
+          <div id="lab-tab-leakage" class="lab-tab-panel" role="tabpanel" aria-labelledby="tab-btn-leakage">
+            <div class="lab-toolbar">
+              <div class="segmented" role="group" aria-label="Validation mode">
+                <button type="button" class="seg-btn active" data-mode="causal">
+                  Honest Point-in-Time (ℱₜ)
+                </button>
+                <button type="button" class="seg-btn" data-mode="leaked">
+                  Leaked Window (Peeks at t+k)
+                </button>
+              </div>
+
+              <div class="lab-actions">
+                <label class="mono-label">
+                  Shock Size:
+                  <select id="shock-select">
+                    <option value="1.0">Calm Regime (1.0x)</option>
+                    <option value="1.8" selected>Volatility Shift (1.8x)</option>
+                    <option value="2.8">Jump Shock (2.8x)</option>
+                  </select>
+                </label>
+                <button type="button" id="reseed-btn" class="ghost-pill">New Random Seed</button>
+              </div>
             </div>
 
-            <div class="lab-actions">
-              <label class="mono-label">
-                Shock Size:
-                <select id="shock-select">
-                  <option value="1.0">Calm Regime (1.0x)</option>
-                  <option value="1.8" selected>Volatility Shift (1.8x)</option>
-                  <option value="2.8">Jump Shock (2.8x)</option>
-                </select>
-              </label>
-              <button type="button" id="reseed-btn" class="ghost-pill">New Random Seed</button>
+            <div class="lab-canvas-wrap">
+              <canvas id="leakage-canvas" width="960" height="310" role="img" aria-label="Interactive chart showing simulated market price, model forecast, and conformal prediction intervals across train and test partitions"></canvas>
+              <div id="leakage-hover-info" class="canvas-hover-readout">Hover over canvas to inspect step-by-step point-in-time metrics</div>
+            </div>
+
+            <div class="lab-metrics">
+              <div class="metric-item">
+                <span class="mono-label">In-Sample Fit (Before Cutoff)</span>
+                <strong id="m-insample">MAE 0.62 · Sharpe 1.45</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">Live Out-of-Sample (Post Cutoff)</span>
+                <strong id="m-oos">MAE 1.18 · Sharpe 1.24</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">90% Interval Coverage (OOS)</span>
+                <strong id="m-cov">91% inside band</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">Validation Takeaway</span>
+                <strong id="m-verdict">Realistic fit; band widens with shock</strong>
+              </div>
             </div>
           </div>
 
-          <div class="lab-canvas-wrap">
-            <canvas id="leakage-canvas" width="960" height="300"></canvas>
-          </div>
+          <!-- TAB 2: JUMP-DIFFUSION VOLATILITY SMILE -->
+          <div id="lab-tab-smile" class="lab-tab-panel" role="tabpanel" aria-labelledby="tab-btn-smile" hidden>
+            <div class="lab-toolbar">
+              <div class="lab-slider-row">
+                <label class="mono-label">
+                  Jump Intensity (λ): <span id="val-jump-lambda">1.2</span>
+                  <input type="range" id="slider-jump-lambda" min="0.0" max="2.5" step="0.1" value="1.2" />
+                </label>
+                <label class="mono-label">
+                  Mean Jump (μ_J): <span id="val-jump-mu">-8%</span>
+                  <input type="range" id="slider-jump-mu" min="-20" max="5" step="1" value="-8" />
+                </label>
+                <label class="mono-label">
+                  Vol-of-Vol (ξ): <span id="val-vol-vol">0.40</span>
+                  <input type="range" id="slider-vol-vol" min="0.10" max="0.80" step="0.05" value="0.40" />
+                </label>
+              </div>
+              <button type="button" id="reset-smile-btn" class="ghost-pill">Reset Defaults</button>
+            </div>
 
-          <div class="lab-metrics">
-            <div class="metric-item">
-              <span class="mono-label">In-Sample Error (Before Cutoff)</span>
-              <strong id="m-insample">--</strong>
+            <div class="lab-canvas-wrap">
+              <canvas id="smile-canvas" width="960" height="310" role="img" aria-label="Interactive chart comparing flat Black-Scholes volatility against the skewed Bates SVJD jump-diffusion volatility smile across moneyness"></canvas>
+              <div id="smile-hover-info" class="canvas-hover-readout">Hover over curve to inspect moneyness (K/S) and implied volatility</div>
             </div>
-            <div class="metric-item">
-              <span class="mono-label">Out-of-Sample Error (Live Reality)</span>
-              <strong id="m-oos">--</strong>
+
+            <div class="lab-metrics">
+              <div class="metric-item">
+                <span class="mono-label">At-The-Money Vol (K/S = 1.00)</span>
+                <strong id="m-atm-vol">22.4% IV</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">Downside Skew Slope (25Δ Put)</span>
+                <strong id="m-skew-slope">-0.34 (Left-Skewed)</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">OTM Put Premium (K/S = 0.85)</span>
+                <strong id="m-otm-premium">+7.8% over Black-Scholes</strong>
+              </div>
+              <div class="metric-item">
+                <span class="mono-label">Sobolev DML Speedup</span>
+                <strong id="m-dml-speed">0.40 ms / 128 contracts (CPU)</strong>
+              </div>
             </div>
-            <div class="metric-item">
-              <span class="mono-label">90% Interval Coverage (OOS)</span>
-              <strong id="m-cov">--</strong>
-            </div>
-            <div class="metric-item">
-              <span class="mono-label">Takeaway</span>
-              <strong id="m-verdict">--</strong>
-            </div>
+
+            <p class="lab-note">
+              <strong>Why 0.40 ms CPU inference matters:</strong> Classical Carr-Madan FFT integration takes hundreds of milliseconds to calibrate option chains; our Sobolev Differential ML pricer evaluates the complete 10-D Bates SVJD surface in 0.40 ms on CPU with zero Jacobian drift.
+            </p>
           </div>
         </div>
       </div>
@@ -230,11 +388,11 @@
           </p>
         </div>
 
-        <div class="filter-bar" role="tablist" aria-label="Filter projects">
-          <button class="filter-pill active" data-filter="all" type="button">All (6)</button>
-          <button class="filter-pill" data-filter="quant" type="button">Quant &amp; Pricing</button>
-          <button class="filter-pill" data-filter="genai" type="button">RAG &amp; Production AI</button>
-          <button class="filter-pill" data-filter="kaggle" type="button">Kaggle (#30 Worldwide)</button>
+        <div class="filter-bar" role="group" aria-label="Filter projects by category">
+          <button class="filter-pill active" data-filter="all" type="button" aria-pressed="true">All (6)</button>
+          <button class="filter-pill" data-filter="quant" type="button" aria-pressed="false">Quant &amp; Pricing</button>
+          <button class="filter-pill" data-filter="genai" type="button" aria-pressed="false">RAG &amp; Production AI</button>
+          <button class="filter-pill" data-filter="kaggle" type="button" aria-pressed="false">Kaggle (#30 Worldwide)</button>
         </div>
 
         <div class="work-grid">
@@ -251,12 +409,13 @@
             <div class="tag-row">
               <span>Python</span><span>PyTorch</span><span>scikit-learn</span><span>Conformal Prediction</span><span>Ubuntu CI Pass</span>
             </div>
-            <button class="ci-toggle" type="button">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre class="ci-drawer" hidden>[GitHub Actions Run #41193425227 · Ubuntu 24.04 · Python 3.11]
+            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-1">Inspect Ubuntu 24.04 CI Log ▾</button>
+            <pre id="ci-drawer-1" class="ci-drawer" hidden>[GitHub Actions Run #41193425227 · Ubuntu 24.04 · Python 3.11]
 cutoff_validator: strictly enforced (1/2 rows accepted, 0 lookahead leakage)
 Detected Market Regime: high_volatility
 Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
-7 passed in 0.04s</pre>
+7 passed in 0.04s
+<a href="https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
           <!-- 02 Neural Bates DML -->
@@ -272,11 +431,12 @@ Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
             <div class="tag-row">
               <span>PyTorch</span><span>Differential ML</span><span>Carr-Madan FFT</span><span>Bates SVJD</span><span>0.40 ms CPU Batch</span>
             </div>
-            <button class="ci-toggle" type="button">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre class="ci-drawer" hidden>[GitHub Actions Run #41193397993 · Ubuntu 24.04 · Python 3.11]
+            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-2">Inspect Ubuntu 24.04 CI Log ▾</button>
+            <pre id="ci-drawer-2" class="ci-drawer" hidden>[GitHub Actions Run #41193397993 · Ubuntu 24.04 · Python 3.11]
 Synthetic Bates SVJD Surface: 128 contracts across 10-D parameter space
 Epoch 1 -> 5 Sobolev Loss: 1.002259 -> 0.923666
-CPU Single-Batch (128 options) Latency: 0.40 ms | Zero NaNs verified</pre>
+CPU Single-Batch (128 options) Latency: 0.40 ms | Zero NaNs verified
+<a href="https://github.com/Amanatar/neural-bates-dml/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
           <!-- 03 FinFaithful-RAG -->
@@ -292,11 +452,12 @@ CPU Single-Batch (128 options) Latency: 0.40 ms | Zero NaNs verified</pre>
             <div class="tag-row">
               <span>FAISS</span><span>Sentence-Transformers</span><span>SEC EDGAR</span><span>NVIDIA NIM</span><span>LLM-as-a-Judge</span>
             </div>
-            <button class="ci-toggle" type="button">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre class="ci-drawer" hidden>[GitHub Actions Run #41193445108 · Ubuntu 24.04 · Python 3.11]
+            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-3">Inspect Ubuntu 24.04 CI Log ▾</button>
+            <pre id="ci-drawer-3" class="ci-drawer" hidden>[GitHub Actions Run #41193445108 · Ubuntu 24.04 · Python 3.11]
 SEC 10-K Corpus Indexed in FAISS (dim=384) &amp; TF-IDF
 Top-1 Retrieval Latency: 8.06 ms (Query 1) / 7.81 ms (Query 2)
-2 passed in 8.88s</pre>
+2 passed in 8.88s
+<a href="https://github.com/Amanatar/FinFaithful-RAG/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
           <!-- 04 Production GenAI & Internships -->
@@ -307,15 +468,16 @@ Top-1 Retrieval Latency: 8.06 ms (Query 1) / 7.81 ms (Query 2)
             </div>
             <h3>FinWiser Cloud Failover, Bedrock RAG &amp; MLflow Suite</h3>
             <p>
-              Built as Data Science with GenAI Intern at <strong>Innomatics Research Labs</strong>: deployed FinWiser on AWS EC2 (Ubuntu + Gunicorn) with live circuit-breaker failover from Gemini API (HTTP 429) to NVIDIA NIM, plus Amazon Bedrock RAG and 5-model MLflow sentiment tracking. Also shipped clinical &amp; mental-health ML apps during internships at <strong>TheSmartBridge</strong> and <strong>Edunet Foundation</strong>.
+              Built as Data Science with GenAI Intern at <strong>Innomatics Research Labs</strong>: deployed FinWiser on AWS EC2 (Ubuntu + Gunicorn) with live circuit-breaker failover from Gemini API (HTTP 429) to NVIDIA NIM, plus Amazon Bedrock RAG and 5-model MLflow sentiment tracking. Also shipped clinical &amp; mental-health ML apps during internships as Machine Learning Engineer Intern at <a href="https://github.com/Amanatar/hypertension-risk-assessment" target="_blank" rel="noopener"><strong>TheSmartBridge</strong></a> and AI &amp; Cloud Technology Intern at <a href="https://github.com/Amanatar/student-mental-health-companion" target="_blank" rel="noopener"><strong>Edunet Foundation</strong></a>.
             </p>
             <div class="tag-row">
               <span>AWS EC2</span><span>Amazon Bedrock</span><span>MLflow</span><span>Flask</span><span>Streamlit</span>
             </div>
-            <button class="ci-toggle" type="button">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre class="ci-drawer" hidden>[GitHub Actions Run #41193499855 · Ubuntu 24.04 · Python 3.11]
+            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-4">Inspect Ubuntu 24.04 CI Log ▾</button>
+            <pre id="ci-drawer-4" class="ci-drawer" hidden>[GitHub Actions Run #41193499855 · Ubuntu 24.04 · Python 3.11]
 Primary Gemini simulated 429 ResourceExhausted -> Failed over cleanly to NVIDIA NIM
-23 Python modules compiled with 0 syntax errors | 3 passed in 1.47s</pre>
+23 Python modules compiled with 0 syntax errors | 3 passed in 1.47s
+<a href="https://github.com/Amanatar/IRL_Data_Science_-_GenAi_Internship/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
           <!-- 05 Alpha Seeker Agents -->
@@ -344,10 +506,22 @@ Primary Gemini simulated 429 ResourceExhausted -> Failed over cleanly to NVIDIA 
               Ranked <strong>#30 of 58,650+</strong> globally on Kaggle (Peak #28 · 4 Gold, 5 Silver, 31 Bronze medals · 2,800+ upvotes) alongside <strong>Gold Level</strong> in the WorldQuant BRAIN alpha challenge. Selected Gold-medal notebooks:
             </p>
             <ul class="compact-links">
-              <li><a href="https://www.kaggle.com/code/amanatar/ans-verifys" target="_blank" rel="noopener">ans-verifys</a> — Reasoning verification harness (Gold · 749+ upvotes)</li>
-              <li><a href="https://www.kaggle.com/code/amanatar/improved-metric-hack-last-call" target="_blank" rel="noopener">improved-metric-hack-last-call</a> — Metric-aware threshold optimization (Gold · 196+ upvotes)</li>
-              <li><a href="https://www.kaggle.com/code/amanatar/nvidia-nemotron-sfttrainer-training" target="_blank" rel="noopener">nvidia-nemotron-sfttrainer-training</a> — Nemotron SFT pipeline (Gold · 176+ upvotes)</li>
-              <li><a href="https://www.kaggle.com/code/amanatar/biohub-geometric-fusion" target="_blank" rel="noopener">biohub-geometric-fusion</a> — Geometric feature fusion (Gold · 172+ upvotes)</li>
+              <li>
+                <a href="https://www.kaggle.com/code/amanatar/ans-verifys" target="_blank" rel="noopener">ans-verifys</a> — Reasoning verification harness (Gold · 749+ upvotes)
+                <span class="pattern-tag">Empirical Pattern: Test-time reasoning verification &amp; self-consistency voting</span>
+              </li>
+              <li>
+                <a href="https://www.kaggle.com/code/amanatar/improved-metric-hack-last-call" target="_blank" rel="noopener">improved-metric-hack-last-call</a> — Metric-aware threshold optimization (Gold · 196+ upvotes)
+                <span class="pattern-tag">Empirical Pattern: Metric-aligned threshold search &amp; post-processing optimization</span>
+              </li>
+              <li>
+                <a href="https://www.kaggle.com/code/amanatar/nvidia-nemotron-sfttrainer-training" target="_blank" rel="noopener">nvidia-nemotron-sfttrainer-training</a> — Nemotron SFT pipeline (Gold · 176+ upvotes)
+                <span class="pattern-tag">Empirical Pattern: TRL supervised fine-tuning &amp; memory-efficient LoRA</span>
+              </li>
+              <li>
+                <a href="https://www.kaggle.com/code/amanatar/biohub-geometric-fusion" target="_blank" rel="noopener">biohub-geometric-fusion</a> — Geometric feature fusion (Gold · 172+ upvotes)
+                <span class="pattern-tag">Empirical Pattern: Non-linear geometric feature fusion across multimodal embeddings</span>
+              </li>
             </ul>
           </article>
         </div>
@@ -470,15 +644,16 @@ Primary Gemini simulated 429 ResourceExhausted -> Failed over cleanly to NVIDIA 
   <div id="cmd-modal" class="modal-backdrop" hidden>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Quick navigation">
       <div class="modal-head">
-        <input id="cmd-input" type="text" placeholder="Jump to section, repo, theme, or copy email..." autocomplete="off" />
+        <input id="cmd-input" type="text" placeholder="Jump to section, repo, theme, or copy email..." aria-label="Search sections, repositories, and actions" autocomplete="off" />
         <button type="button" id="cmd-close" class="ghost-pill">Esc</button>
       </div>
       <ul id="cmd-list" class="cmd-list">
         <li data-action="jump" data-target="#philosophy">01 · Philosophical Notes</li>
-        <li data-action="jump" data-target="#lab">02 · Interactive Lookahead Sketch</li>
+        <li data-action="jump" data-target="#lab">02 · Interactive Quant Intuition Lab</li>
         <li data-action="jump" data-target="#work">03 · Selected Engineering Work</li>
         <li data-action="jump" data-target="#now">04 · Honest Now Ledger</li>
         <li data-action="jump" data-target="#shelf">05 · Bookshelf &amp; Project Euler</li>
+        <li data-action="print">Print 1-Page Executive Brief (PDF)</li>
         <li data-action="theme">Toggle Obsidian / Paper Theme</li>
         <li data-action="email">Copy Email (ataraman9@gmail.com)</li>
         <li data-action="url" data-url="https://github.com/Amanatar">Open GitHub (github.com/Amanatar) ↗</li>
@@ -488,6 +663,6 @@ Primary Gemini simulated 429 ResourceExhausted -> Failed over cleanly to NVIDIA 
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
