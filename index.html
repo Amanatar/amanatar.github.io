@@ -365,12 +365,12 @@
               </div>
               <div class="metric-item">
                 <span class="mono-label">Sobolev DML Speedup</span>
-                <strong id="m-dml-speed">0.40 ms / 128 contracts (CPU)</strong>
+                <strong id="m-dml-speed">1.58× Calib (10.3× per surface)</strong>
               </div>
             </div>
 
             <p class="lab-note">
-              <strong>Why 0.40 ms CPU inference matters:</strong> Classical Carr-Madan FFT integration takes hundreds of milliseconds to calibrate option chains; our Sobolev Differential ML pricer evaluates the complete 10-D Bates SVJD surface in 0.40 ms on CPU with zero Jacobian drift.
+              <strong>Why 10.3× CPU inference matters:</strong> Classical Carr-Madan FFT integration requires numerical quad-roots at every optimization step; our Sobolev Differential ML pricer calibrates real SPY multi-expiry option chains in 6.07 s (vs. 9.61 s FFT) with 340 bps IV RMSE and 40.1% lower Greek error. Explore the full interactive surface in the <a href="https://huggingface.co/spaces/Amanatar/neural-bates-dml" target="_blank" rel="noopener" style="color:var(--accent);">Live Hugging Face Workbench ↗</a>.
             </p>
           </div>
         </div>
@@ -422,20 +422,25 @@ Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
           <article class="work-card" data-cat="quant">
             <div class="work-top">
               <span class="work-idx">02 · Option Pricing &amp; Stochastic Models</span>
-              <a href="https://github.com/Amanatar/neural-bates-dml" target="_blank" rel="noopener" class="work-link">GitHub ↗</a>
+              <div style="display:flex;gap:0.75rem;align-items:center;">
+                <a href="https://huggingface.co/spaces/Amanatar/neural-bates-dml" target="_blank" rel="noopener" class="work-link" style="color:var(--accent);">Live Workbench ↗</a>
+                <a href="https://github.com/Amanatar/neural-bates-dml" target="_blank" rel="noopener" class="work-link">GitHub ↗</a>
+              </div>
             </div>
             <h3>Neural Bates DML: Sobolev Option Pricing Surrogate</h3>
             <p>
-              Twin-network PyTorch surrogate for the 10-parameter Bates stochastic volatility jump-diffusion (SVJD) model. Trained with Sobolev loss on analytical option prices and Greeks from a Carr-Madan FFT pricer — running a 128-option batch in <strong>0.40 ms</strong> on CPU with zero NaNs.
+              Twin-network PyTorch surrogate for the 10-parameter Bates stochastic volatility jump-diffusion (SVJD) model. Supervised on analytical prices and Greeks via Sobolev loss, achieving <strong>1.58× faster SPY calibration</strong> (6.07 s vs. 9.61 s FFT), <strong>10.3× per-surface speedup</strong> (3.26 ms CPU), <strong>340 bps IV RMSE</strong>, and <strong>40.1% lower Delta error</strong>.
             </p>
             <div class="tag-row">
-              <span>PyTorch</span><span>Differential ML</span><span>Carr-Madan FFT</span><span>Bates SVJD</span><span>0.40 ms CPU Batch</span>
+              <span>PyTorch</span><span>Differential ML</span><span>Carr-Madan FFT</span><span>Bates SVJD</span><span>1.58× Calib Speedup</span><span>10.3× CPU Surface</span><span>340 bps IV RMSE</span>
             </div>
             <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-2">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre id="ci-drawer-2" class="ci-drawer" hidden>[GitHub Actions Run #41193397993 · Ubuntu 24.04 · Python 3.11]
-Synthetic Bates SVJD Surface: 128 contracts across 10-D parameter space
-Epoch 1 -> 5 Sobolev Loss: 1.002259 -> 0.923666
-CPU Single-Batch (128 options) Latency: 0.40 ms | Zero NaNs verified
+            <pre id="ci-drawer-2" class="ci-drawer" hidden>[GitHub Actions Run #41807911043 · Ubuntu 24.04 · Python 3.11]
+test_bates_dml_synthetic_training: PASSED [128-contract Sobolev synthetic loop]
+test_fft_black_scholes_limit: PASSED [Max price error: 1.13e-04 &lt; 1.0e-03]
+test_pretrained_sobolev_checkpoint: PASSED [Zero NaNs, 0.40 ms/128-batch, 40.1% Delta MAE drop]
+test_spy_surface_calibration: PASSED [Recovered IV RMSE: 340.0 bps in 6.07 s]
+8 passed in 9.29s
 <a href="https://github.com/Amanatar/neural-bates-dml/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
