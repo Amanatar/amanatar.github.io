@@ -98,7 +98,7 @@
         "codeRepository": "https://github.com/Amanatar/FinFaithful-RAG",
         "programmingLanguage": "Python",
         "author": { "@id": "https://amanatar.github.io/#person" },
-        "description": "SEC EDGAR 10-K dense FAISS retrieval and LLM-as-a-Judge faithfulness evaluation pipeline."
+        "description": "SEC EDGAR 10-K grounded retrieval and decoupled LLM-as-a-Judge faithfulness benchmark across 120 audited questions."
       }
     ]
   }
@@ -450,18 +450,18 @@ test_spy_surface_calibration: PASSED [Recovered IV RMSE: 340.0 bps in 6.07 s]
               <span class="work-idx">03 · Financial NLP &amp; Evaluation</span>
               <a href="https://github.com/Amanatar/FinFaithful-RAG" target="_blank" rel="noopener" class="work-link">GitHub ↗</a>
             </div>
-            <h3>FinFaithful-RAG: SEC 10-K Retrieval &amp; Faithfulness Benchmark</h3>
+            <h3>FinFaithful-RAG: SEC 10-K Grounded Retrieval &amp; Faithfulness Benchmark</h3>
             <p>
-              End-to-end retrieval and LLM-as-a-Judge evaluation pipeline over SEC EDGAR 10-K filings. Compares TF-IDF, dense FAISS (~8 ms vector lookup), and hybrid retrieval via NVIDIA NIM (Llama 3.1 70B), lifting answer faithfulness from <strong>1.67 / 5.0</strong> (raw LLM) to <strong>5.00 / 5.0</strong>.
+              Audited financial retrieval and verification engine over SEC Form 10-K filings (<code>AAPL</code>, <code>MSFT</code>, <code>NVDA</code>, <code>JPM</code>, <code>GOOGL</code>). Evaluates 4 retrieval modes across <strong>120 ground-truth questions</strong> and decoupled live LLM evaluation (generator: Qwen-27B; judge: Allam-7B). Standalone retrieval progression achieves <strong>70.0% Recall@5</strong> (MRR@10: 0.3894) with <strong>86.8% verified citation validity</strong>, <strong>100.0% adversarial trap abstention</strong>, and a production Streamlit Cloud workbench (&lt; 35 MB).
             </p>
             <div class="tag-row">
-              <span>FAISS</span><span>Sentence-Transformers</span><span>SEC EDGAR</span><span>NVIDIA NIM</span><span>LLM-as-a-Judge</span>
+              <span>FAISS</span><span>Cross-Encoder</span><span>BM25</span><span>Sentence-Transformers</span><span>Streamlit Cloud</span><span>LLM-as-a-Judge</span>
             </div>
-            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-3">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre id="ci-drawer-3" class="ci-drawer" hidden>[GitHub Actions Run #41193445108 · Ubuntu 24.04 · Python 3.11]
+            <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-3">Inspect Ubuntu 26.04 CI Log ▾</button>
+            <pre id="ci-drawer-3" class="ci-drawer" hidden>[GitHub Actions Run #42261586719 · Ubuntu 26.04 · Python 3.11]
 SEC 10-K Corpus Indexed in FAISS (dim=384) &amp; TF-IDF
-Top-1 Retrieval Latency: 8.06 ms (Query 1) / 7.81 ms (Query 2)
-2 passed in 8.88s
+Top-1 Retrieval Latency: 10.06 ms (Query 1) / 9.85 ms (Query 2)
+2 passed in 10.54s
 <a href="https://github.com/Amanatar/FinFaithful-RAG/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
