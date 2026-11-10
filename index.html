@@ -82,7 +82,7 @@
         "codeRepository": "https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting",
         "programmingLanguage": "Python",
         "author": { "@id": "https://amanatar.github.io/#person" },
-        "description": "Timestamp-Restricted Regime-Aware Forecasting with strict cutoff checks and conformal prediction intervals."
+        "description": "Timestamp-Restricted Regime-Aware Forecasting achieving 1.189 Net Sharpe, 44.9% lower Max Drawdown (11.76%), 93.60% stress conformal coverage, and 0/1,772 causal lookahead violations across 2020-2026."
       },
       {
         "@type": "SoftwareSourceCode",
@@ -90,7 +90,7 @@
         "codeRepository": "https://github.com/Amanatar/neural-bates-dml",
         "programmingLanguage": "Python",
         "author": { "@id": "https://amanatar.github.io/#person" },
-        "description": "Twin-network PyTorch surrogate for the 10-parameter Bates SVJD model trained with Sobolev differential ML."
+        "description": "Twin-network PyTorch Sobolev Differential ML surrogate for the 10-parameter Bates SVJD model cutting Delta RMSE by 36.0% and accelerating 5-regime L-BFGS calibration by 7.6x-15.5x (0.43-0.66s)."
       },
       {
         "@type": "SoftwareSourceCode",
@@ -365,12 +365,12 @@
               </div>
               <div class="metric-item">
                 <span class="mono-label">Sobolev DML Speedup</span>
-                <strong id="m-dml-speed">1.58× Calib (10.3× per surface)</strong>
+                <strong id="m-dml-speed">7.6×–15.5× Calib (0.43–0.66s L-BFGS)</strong>
               </div>
             </div>
 
             <p class="lab-note">
-              <strong>Why 10.3× CPU inference matters:</strong> Classical Carr-Madan FFT integration requires numerical quad-roots at every optimization step; our Sobolev Differential ML pricer calibrates real SPY multi-expiry option chains in 6.07 s (vs. 9.61 s FFT) with 340 bps IV RMSE and 40.1% lower Greek error. Explore the full interactive surface in the <a href="https://huggingface.co/spaces/Amanatar/neural-bates-dml" target="_blank" rel="noopener" style="color:var(--accent);">Live Hugging Face Workbench ↗</a>.
+              <strong>Why sub-second CPU calibration matters:</strong> Classical Carr-Madan FFT quadrature takes 5.00–7.90 s per 55-contract regime fit; Twin-Net Sobolev DML cuts Delta RMSE by 36.0% and solves 5-regime PyTorch L-BFGS surfaces in 0.43–0.66 s (25.6–39.3 bps on stress regimes), plus live SPY calibration in 6.07 s (97.9% arbitrage pass rate). Explore the full interactive surface in the <a href="https://huggingface.co/spaces/Amanatar/neural-bates-dml" target="_blank" rel="noopener" style="color:var(--accent);">Live Hugging Face Workbench ↗</a>.
             </p>
           </div>
         </div>
@@ -404,17 +404,17 @@
             </div>
             <h3>TRACE-Fin: Point-in-Time Regime-Aware Forecasting</h3>
             <p>
-              Return-forecasting research framework built around strict timestamp cutoff checks (zero lookahead leakage), regime-shift detection, transaction-cost utility, and calibrated 90% (α = 0.10) conformal prediction intervals.
+              Causal walk-forward forecasting and conformal risk engine across <strong>1,772 out-of-sample trading days</strong> (2020–2026; <code>SPY</code>, <code>QQQ</code>, <code>^NSEI</code>, <code>TLT</code>, <code>GLD</code>; net of 10 bps costs). Delivers <strong>1.189 Net Sharpe</strong> (vs. 0.963 Buy &amp; Hold), <strong>1.680 Sortino</strong>, <strong>44.9% lower Max Drawdown</strong> (<strong>11.76%</strong> vs. 21.34%), and <strong>4.19×</strong> turnover (vs. 121.86×), while regime-normalized ACI lifts High-Volatility 90% coverage to <strong>93.60%</strong> (vs. 84.14% static) with <strong>0 / 1,772 causal violations</strong>.
             </p>
             <div class="tag-row">
-              <span>Python</span><span>PyTorch</span><span>scikit-learn</span><span>Conformal Prediction</span><span>Ubuntu CI Pass</span>
+              <span>Python</span><span>scikit-learn</span><span>PyArrow</span><span>1.189 Net Sharpe</span><span>93.60% Stress Cov</span><span>Ubuntu CI Pass</span>
             </div>
             <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-1">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre id="ci-drawer-1" class="ci-drawer" hidden>[GitHub Actions Run #41193425227 · Ubuntu 24.04 · Python 3.11]
-cutoff_validator: strictly enforced (1/2 rows accepted, 0 lookahead leakage)
-Detected Market Regime: high_volatility
-Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
-7 passed in 0.04s
+            <pre id="ci-drawer-1" class="ci-drawer" hidden>[GitHub Actions Run #42767032316 · Ubuntu · Python 3.11]
+Verified Parquet Cache: 11056 rows across 5 assets (0.387 MB)
+2020-2026 Walk-Forward Verified: TRACE-Fin Net Sharpe=1.189 vs B&amp;H=0.963, Max DD=11.76% vs 21.34%
+Regime Conformal CSV Verified: Stress coverage 93.60% (vs 84.14% Static) | 0 causal violations
+31 passed in 6.21s
 <a href="https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
@@ -429,18 +429,18 @@ Conformal Prediction Interval: [103.5256, 103.5416] (Alpha: 0.10)
             </div>
             <h3>Neural Bates DML: Sobolev Option Pricing Surrogate</h3>
             <p>
-              Twin-network PyTorch surrogate for the 10-parameter Bates stochastic volatility jump-diffusion (SVJD) model. Supervised on analytical prices and Greeks via Sobolev loss, achieving <strong>1.58× faster SPY calibration</strong> (6.07 s vs. 9.61 s FFT), <strong>10.3× per-surface speedup</strong> (3.26 ms CPU), <strong>340 bps IV RMSE</strong>, and <strong>40.1% lower Delta error</strong>.
+              Twin-network PyTorch surrogate for the 10-D Bates SVJD model. Across <code>N=8,192</code> out-of-sample evaluation, Sobolev training reduces <strong>Delta RMSE by 36.0%</strong>, <strong>Vega RMSE by 23.8%</strong>, and <strong>Price RMSE by 30.2%</strong> vs. Price-Only MLP (<code>1.544 ms</code> 128-batch CPU, <code>0.51 MB</code> checkpoint). Achieves <strong>7.6×–15.5× faster 5-regime surface calibration</strong> (<strong>0.43–0.66 s</strong> L-BFGS vs. 5.00–7.90 s FFT; <strong>25.6–39.3 bps</strong> stress IV RMSE) and <strong>6.07 s</strong> live <code>SPY</code> calibration (<strong>97.9%</strong> arbitrage pass rate).
             </p>
             <div class="tag-row">
-              <span>PyTorch</span><span>Differential ML</span><span>Carr-Madan FFT</span><span>Bates SVJD</span><span>1.58× Calib Speedup</span><span>10.3× CPU Surface</span><span>340 bps IV RMSE</span>
+              <span>PyTorch</span><span>Sobolev DML</span><span>Carr-Madan FFT</span><span>36.0% Delta RMSE Drop</span><span>7.6×–15.5× Calib Speedup</span><span>0.43–0.66s L-BFGS</span>
             </div>
             <button class="ci-toggle" type="button" aria-expanded="false" aria-controls="ci-drawer-2">Inspect Ubuntu 24.04 CI Log ▾</button>
-            <pre id="ci-drawer-2" class="ci-drawer" hidden>[GitHub Actions Run #41807911043 · Ubuntu 24.04 · Python 3.11]
-test_bates_dml_synthetic_training: PASSED [128-contract Sobolev synthetic loop]
-test_fft_black_scholes_limit: PASSED [Max price error: 1.13e-04 &lt; 1.0e-03]
-test_pretrained_sobolev_checkpoint: PASSED [Zero NaNs, 0.40 ms/128-batch, 40.1% Delta MAE drop]
-test_spy_surface_calibration: PASSED [Recovered IV RMSE: 340.0 bps in 6.07 s]
-8 passed in 9.29s
+            <pre id="ci-drawer-2" class="ci-drawer" hidden>[GitHub Actions Run #42766175249 · Ubuntu · Python 3.11]
+test_fft_black_scholes_limit: PASSED [Max error &lt; 1.0e-03]
+test_sobolev_ablation_metrics_verified: PASSED [Delta RMSE -36.0%, Vega -23.8%, Price -30.2%]
+test_fast_5regime_sobolev_calibration_ci: PASSED [7.6x-15.5x speedup, 0 NaNs]
+test_spy_surface_calibration: PASSED [6.07 s, 97.9% arbitrage pass rate]
+10 passed in 3.81s
 <a href="https://github.com/Amanatar/neural-bates-dml/actions" target="_blank" rel="noopener" class="ci-link">View Live GitHub Actions Workflow ↗</a></pre>
           </article>
 
