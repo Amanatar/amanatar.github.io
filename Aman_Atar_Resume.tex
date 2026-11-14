@@ -1,0 +1,132 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.35in,top=0.28in,bottom=0.28in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[protrusion=true,expansion=false]{microtype}
+
+% Color definition
+\definecolor{linkblue}{HTML}{004B87}
+\definecolor{darktext}{HTML}{1A1A1A}
+\definecolor{subtext}{HTML}{333333}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    urlcolor=linkblue,
+    pdfauthor={Aman Atar},
+    pdftitle={Aman Atar - Master Resume},
+    pdfsubject={Quantitative Systems and Machine Learning Engineer},
+    pdfkeywords={Machine Learning, Financial Engineering, Quantitative Finance, RAG, PyTorch, Conformal Prediction, Differential ML}
+}
+
+% Font adjustments
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{empty}
+
+% Section formatting
+\titleformat{\section}{\fontsize{10pt}{11pt}\bfseries\color{darktext}}{}{0em}{}[\vspace{-4pt}\rule{\textwidth}{0.5pt}\vspace{-4pt}]
+\titlespacing*{\section}{0pt}{2.5pt}{1.8pt}
+
+% Custom itemize spacing
+\setlist[itemize]{leftmargin=10pt,nosep,topsep=0.5pt,partopsep=0pt,parsep=0pt,itemsep=0.5pt}
+
+\begin{document}
+\color{darktext}
+\fontsize{8.8pt}{10.3pt}\selectfont
+
+% HEADER
+\begin{center}
+    {\fontsize{15pt}{16.5pt}\bfseries AMAN ATAR}\\[1pt]
+    \footnotesize
+    Maharashtra, India (Open to Pune, Bengaluru, Mumbai, Hyderabad \& Remote) \ $\cdot$ \ 
+    \href{mailto:ataraman9@gmail.com}{ataraman9@gmail.com} \ $\cdot$ \ 
+    \href{https://amanatar.github.io}{amanatar.github.io}\\[0.5pt]
+    \href{https://github.com/Amanatar}{github.com/Amanatar} \ $\cdot$ \ 
+    \href{https://www.kaggle.com/amanatar}{kaggle.com/amanatar} (\textbf{\#30 Worldwide}) \ $\cdot$ \ 
+    \href{https://www.linkedin.com/in/aman-atar}{linkedin.com/in/aman-atar}
+\end{center}
+\vspace{-9pt}
+
+% SUMMARY
+\section*{SUMMARY}
+\noindent
+Machine Learning \& Quantitative Systems Engineer pursuing an \textbf{M.Sc. in Financial Engineering at WorldQuant University}. Ranked \textbf{\#30 Worldwide on Kaggle (Top 0.05\%, 40 Medals)} and \textbf{Gold Level on WorldQuant BRAIN}, with verified experience shipping AWS EC2 LLM failover systems, 480-run SEC 10-K Hybrid RAG benchmarks, and 0.40 ms PyTorch Differential ML option pricers verified on Ubuntu 24.04 CI.
+
+% TECHNICAL SKILLS
+\section*{TECHNICAL SKILLS}
+\noindent\textbf{Machine Learning \& Quant:} Python, PyTorch, scikit-learn, LightGBM, XGBoost, CatBoost, LinearSVC, Differential ML (Sobolev Loss), Conformal Prediction (CQR), Carr-Madan FFT, Bates SVJD, HMM Regime Detection, Soft-Sinkhorn Optimal Transport\\
+\noindent\textbf{GenAI, NLP \& Retrieval:} Retrieval-Augmented Generation (RAG), FAISS, BM25, Reciprocal Rank Fusion (RRF), Cross-Encoder Reranking, Sentence-Transformers, HuggingFace TRL (SFT), Google ADK (Multi-Agent), Amazon Bedrock, Gemini API, NVIDIA NIM, Groq, VADER\\
+\noindent\textbf{Cloud MLOps \& Data Engineering:} AWS EC2, Docker, Linux (Ubuntu 24.04), GitHub Actions CI/CD, MLflow, Flask, Streamlit, Gunicorn, pytest, PostgreSQL, Google BigQuery, Apache Spark, Kafka, dbt, Kestra, Terraform, SQL, Git
+
+% EXPERIENCE
+\section*{PROFESSIONAL EXPERIENCE}
+\noindent\textbf{Innomatics Research Labs} \hfill \textbf{Nov 2025 -- Mar 2026}\\
+\textit{Data Science with GenAI Intern} \hfill \textit{Hyderabad, India (Remote)}
+\begin{itemize}
+    \item Deployed \textbf{FinWiser} on \textbf{AWS EC2 (Ubuntu, Gunicorn, systemd)} with a live circuit-breaker failover that intercepts Gemini API HTTP 429 rate-limit drops and routes traffic to \textbf{NVIDIA NIM (Kimi \& Llama 3.1 70B)} with zero session loss.
+    \item Built an enterprise semantic Q\&A pipeline using \textbf{Amazon Bedrock Knowledge Bases} with automated document chunking, alongside a structured YouTube-transcript-to-PDF synthesis pipeline.
+    \item Benchmarked 5 sentiment-classification models in \textbf{MLflow} on imbalanced Flipkart review data, optimizing hyperparameter sweeps on macro F1-score (82.12\% confidence) and serving the winning model via Flask on EC2.
+\end{itemize}
+\vspace{1pt}
+
+\noindent\textbf{TheSmartBridge} \hfill \textbf{Nov 2025 -- Jan 2026}\\
+\textit{Machine Learning Engineer Intern} \hfill \textit{Hyderabad, India (Remote)}
+\begin{itemize}
+    \item Built an end-to-end 4-stage clinical hypertension risk stratification system (\textbf{Normal, Stage-1, Stage-2, Crisis}) served via a calibrated \textbf{Flask} web interface (\href{https://github.com/Amanatar/hypertension-risk-assessment}{github.com/Amanatar/hypertension-risk-assessment}).
+    \item Locked train-to-inference feature scaling invariants inside a single serialized preprocessing artifact to prevent distribution drift across clinical classes, verified via automated \textbf{pytest} HTTP 200 smoke suites in GitHub Actions CI.
+\end{itemize}
+\vspace{1pt}
+
+\noindent\textbf{Edunet Foundation (AICTE $\times$ IBM SkillsBuild)} \hfill \textbf{Sep 2025 -- Oct 2025}\\
+\textit{AI \& Cloud Technology Intern} \hfill \textit{Remote}
+\begin{itemize}
+    \item Built \textbf{Student Mental Health Companion} (featured AICTE $\times$ IBM capstone), pairing the \textbf{Gemini API} with real-time \textbf{VADER} compound sentiment routing and deterministic offline crisis-helpline fallbacks (\href{https://github.com/Amanatar/student-mental-health-companion}{github.com/Amanatar/student-mental-health-companion}).
+\end{itemize}
+
+% SELECTED SYSTEMS & RESEARCH
+\section*{SELECTED EMPIRICAL SYSTEMS \& RESEARCH (10/10 UBUNTU 24.04 CI VERIFIED)}
+\noindent\textbf{FinFaithful-RAG: 480-Run SEC EDGAR 10-K Hybrid RAG Benchmark} \ $\cdot$ \ \href{https://github.com/Amanatar/FinFaithful-RAG}{github.com/Amanatar/FinFaithful-RAG} (CI \#42760579773)
+\begin{itemize}
+    \item Evaluated 4 retrieval tiers across \textbf{480 live runs} (120 audited questions over \textbf{AAPL, MSFT, NVDA, JPM, GOOGL} Form 10-K filings) using a decoupled generator (\texttt{qwen3.8-27b}) and independent judge (\texttt{gpt-oss-20b}).
+    \item Engineered Markdown table-header replication, per-ticker quota routing, and \textbf{Hybrid RRF (BM25 + FAISS) + Cross-Encoder reranking}, lifting \textbf{HitRate@5 from 44.4\% (FAISS) and 54.4\% (BM25) to 72.2\%} and doubling cross-company comparative recall (\textbf{33.3\% $\rightarrow$ 66.7\%}).
+    \item Raised grounded answer faithfulness from \textbf{2.66/5.0} (ungrounded baseline, 0.0\% fact coverage) to \textbf{4.12/5.0} (\textbf{89.2\%} inline citation validity) and achieved \textbf{100.0\% abstention accuracy} across 30 adversarial hallucination traps.
+\end{itemize}
+\vspace{1pt}
+
+\noindent\textbf{Neural Bates DML: Sobolev Differential ML Option Pricing Surrogate} \ $\cdot$ \ \href{https://github.com/Amanatar/neural-bates-dml}{github.com/Amanatar/neural-bates-dml} (CI \#41193397993)
+\begin{itemize}
+    \item Trained a twin-network \textbf{PyTorch} surrogate for the 10-parameter \textbf{Bates SVJD} jump-diffusion model on analytical \textbf{Carr-Madan FFT} option prices and exact Greeks ($\Delta, \mathcal{V}$, Jacobians), evaluating a \textbf{128-option batch in 0.40 ms on CPU} with zero NaN instability.
+\end{itemize}
+\vspace{1pt}
+
+\noindent\textbf{Kronos v1.0.0 \& TRACE-Fin: Point-in-Time Conformal Econometrics} \ $\cdot$ \ \href{https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting}{github.com/Amanatar/auditable-regime-aware-agentic-forecasting} (CI \#41193425227)
+\begin{itemize}
+    \item Audited asymmetric tail sizing across \textbf{4,450 out-of-sample asset-days (890 NYSE sessions, 2023--2026)} net of 25 bps costs; Bowley quantile skewness sizing reduces maximum drawdown by \textbf{30\% (-0.14\% vs. -0.20\%)} with deterministic replication ($< 3.33 \times 10^{-16}$) in \textbf{0.47s}.
+    \item Enforced strict point-in-time cutoff invariance (\texttt{cutoff\_validator.py}, 0 lookahead leakage), HMM regime detection, and calibrated \textbf{90\% ($\alpha = 0.10$) conformal intervals} in \textbf{0.04s}.
+\end{itemize}
+\vspace{1pt}
+
+\noindent\textbf{Competitive ML Systems: LLM Behavioral Forensics \& Gold Kernels} \ $\cdot$ \ \href{https://www.kaggle.com/amanatar}{kaggle.com/amanatar}
+\begin{itemize}
+    \item Reached \textbf{0.684 Public LB (Rank 353 / 5,728, Top 6\%)} in \textit{Name That LLM} via \texttt{Q3-8B}/\texttt{WeMM-4B} embeddings, Soft-Sinkhorn transport, ATLAS subspace scoring, and 4-view \texttt{LinearSVC} (539k sparse features); built \texttt{ionwraith-v18} over 324,884 MS/MS spectra in \textit{CASMI 2026}; authored 4 Gold notebooks led by \texttt{ans-verifys} (\textbf{749+ upvotes}).
+\end{itemize}
+
+% EDUCATION
+\section*{EDUCATION}
+\noindent\textbf{WorldQuant University} --- \textit{M.Sc. in Financial Engineering (MScFE)} \hfill \textbf{2025 -- Present}\\
+\textit{Coursework:} Financial Econometrics (MScFE 610), Derivative Pricing (MScFE 620), Stochastic Modeling\\[0.5pt]
+\noindent\textbf{Indian Institute of Technology (IIT) Hyderabad} --- \textit{Coursework in AI, Machine Learning \& Autonomous Systems} \hfill \textbf{2025 -- Present}\\[0.5pt]
+\noindent\textbf{Punyashlok Ahilyadevi Holkar Solapur University} --- \textit{Bachelor of Computer Applications (BCA)} \hfill \textbf{Graduated June 2025}
+
+% HONORS & CERTIFICATIONS
+\section*{HONORS \& CERTIFICATIONS}
+\noindent\textbf{Kaggle Notebooks Expert --- Global Rank \#30 / 58,650+ (Top 0.05\%, Peak \#28):} 40 Medals (4 Gold, 5 Silver, 31 Bronze) \& 2,800+ upvotes.\\
+\noindent\textbf{WorldQuant BRAIN Challenge --- Gold Level (2025 -- Present):} Market-neutral, low-turnover cross-sectional equity alpha research.\\
+\noindent\textbf{DataTalks.Club Data Engineering Zoomcamp (2026 Cohort):} Docker, PostgreSQL, Terraform, BigQuery, Kestra, dbt, Spark, Kafka.
+
+\end{document}

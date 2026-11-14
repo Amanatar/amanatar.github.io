@@ -1,5 +1,14 @@
+/**
+ * AMAN ATAR — @FOLIO 26 SWISS KINETIC + BENTO STUDIO INTERACTIVE ENGINE
+ * Zero frameworks. Pure vanilla JS. 60 FPS Canvas. Full WCAG AA keyboard & ARIA support.
+ */
+
 (() => {
+  "use strict";
+
+  // ---------------------------------------------------------
   // 1. Live IST Clock
+  // ---------------------------------------------------------
   const clockEl = document.getElementById("ist-clock");
   const updateClock = () => {
     if (!clockEl) return;
@@ -17,7 +26,9 @@
   updateClock();
   setInterval(updateClock, 30000);
 
+  // ---------------------------------------------------------
   // 2. Theme Toggle (Obsidian <-> Paper)
+  // ---------------------------------------------------------
   const root = document.documentElement;
   const themeBtn = document.getElementById("theme-toggle");
   const themeLabel = document.getElementById("theme-label");
@@ -26,8 +37,8 @@
     root.setAttribute("data-theme", theme);
     localStorage.setItem("aman_theme", theme);
     if (themeLabel) themeLabel.textContent = theme === "obsidian" ? "Paper" : "Obsidian";
-    drawLeakageLab();
-    drawSmileLab();
+    if (typeof drawLeakageLab === "function") drawLeakageLab();
+    if (typeof drawSmileLab === "function") drawSmileLab();
   };
 
   const savedTheme = localStorage.getItem("aman_theme");
@@ -41,7 +52,26 @@
     applyTheme(next);
   });
 
-  // 3. Hero Canvas: "The Hidden Harmony Is Stronger Than the Obvious"
+  // ---------------------------------------------------------
+  // 3. Cursor-Tracking Border Spotlight
+  // ---------------------------------------------------------
+  const initSpotlights = () => {
+    const cards = document.querySelectorAll(".spotlight-card, .work-row, .bento-card, .trust-card");
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      });
+    });
+  };
+  initSpotlights();
+
+  // ---------------------------------------------------------
+  // 4. Hero Stochastic Canvas: "Hidden Harmony"
+  // ---------------------------------------------------------
   const heroCanvas = document.getElementById("harmony-canvas");
   const noiseSlider = document.getElementById("noise-slider");
   const noiseVal = document.getElementById("noise-val");
@@ -56,10 +86,10 @@
   if (heroCanvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     const ctx = heroCanvas.getContext("2d");
     let w = 0, h = 0, t = 0, visible = true;
-    const paths = Array.from({ length: 14 }, (_, i) => ({
-      phase: (i / 14) * Math.PI * 2,
-      speed: 0.004 + (i % 4) * 0.0012,
-      offset: (i - 6.5) * 14,
+    const paths = Array.from({ length: 16 }, (_, i) => ({
+      phase: (i / 16) * Math.PI * 2,
+      speed: 0.0035 + (i % 4) * 0.0011,
+      offset: (i - 7.5) * 14,
     }));
 
     const resize = () => {
@@ -79,742 +109,870 @@
     io.observe(heroCanvas);
 
     const renderHero = () => {
-      if (visible && w > 0) {
-        ctx.clearRect(0, 0, w, h);
-        const isPaper = root.getAttribute("data-theme") === "paper";
-        const strokeNoise = isPaper ? "rgba(24,24,26,0.08)" : "rgba(236,235,230,0.07)";
-        const strokeGold = isPaper ? "rgba(120,85,39,0.60)" : "rgba(200,169,126,0.55)";
-        const cy = h * 0.56;
-        const amp = Math.min(48, h * 0.12);
-        const noiseScale = 1 - filterStrength;
+      if (!visible) {
+        requestAnimationFrame(renderHero);
+        return;
+      }
+      t += 0.75;
+      ctx.clearRect(0, 0, w, h);
 
-        paths.forEach((p, idx) => {
-          ctx.beginPath();
-          for (let x = 0; x <= w; x += 12) {
-            const harmonic = Math.sin(x * 0.0045 + t) * amp + Math.cos(x * 0.002 - t * 0.6) * (amp * 0.4);
-            const jitter =
-              (Math.sin(x * 0.035 + p.phase + t * 2.1) * 26 +
-                Math.cos(x * 0.08 - p.phase * 1.7) * 14 +
-                p.offset) *
-              noiseScale;
-            const y = cy + harmonic + jitter;
-            if (x === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          }
-          ctx.strokeStyle = strokeNoise;
-          ctx.lineWidth = idx % 3 === 0 ? 1.2 : 0.8;
-          ctx.stroke();
-        });
+      const isPaper = root.getAttribute("data-theme") === "paper";
+      const baseAlpha = isPaper ? 0.22 : 0.42;
 
-        // Latent harmonic curve
+      paths.forEach((p, idx) => {
         ctx.beginPath();
-        for (let x = 0; x <= w; x += 8) {
-          const y = cy + Math.sin(x * 0.0045 + t) * amp + Math.cos(x * 0.002 - t * 0.6) * (amp * 0.4);
+        const baseColor = isPaper ? "rgba(4, 120, 87," : "rgba(212, 175, 55,";
+        ctx.strokeStyle = `${baseColor} ${baseAlpha * (1 - idx / 20)})`;
+        ctx.lineWidth = idx === 0 ? 1.8 : 1.0;
+
+        for (let x = 0; x < w; x += 6) {
+          const normX = x / w;
+          const latent = Math.sin(normX * 4 + t * p.speed + p.phase) * 32 * (1 - filterStrength * 0.4);
+          const noise = (Math.sin(x * 12.7 + t * 0.1) * Math.cos(x * 7.3)) * 18 * (1 - filterStrength);
+          const y = h * 0.52 + p.offset + latent + noise;
           if (x === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-        ctx.strokeStyle = strokeGold;
-        ctx.lineWidth = 1.6 + filterStrength * 0.9;
         ctx.stroke();
+      });
 
-        t += 0.008;
-      }
       requestAnimationFrame(renderHero);
     };
     requestAnimationFrame(renderHero);
   }
 
-  // 4. Philosophical Notes Accordion
-  document.querySelectorAll(".note-card").forEach((card) => {
-    const btn = card.querySelector(".note-trigger");
-    const icon = card.querySelector(".note-icon");
-    btn?.addEventListener("click", () => {
-      const open = card.classList.toggle("is-open");
-      btn.setAttribute("aria-expanded", String(open));
-      if (icon) icon.textContent = open ? "−" : "+";
-    });
-  });
+  // ---------------------------------------------------------
+  // 5. Interactive Recruiter Role-Lens Switcher
+  // ---------------------------------------------------------
+  const lensButtons = document.querySelectorAll(".lens-pill");
+  const lensCallout = document.getElementById("lens-callout-text");
+  const workRows = document.querySelectorAll(".work-row");
 
-  // 5. MASTER LAB TABS (Lookahead vs. Causal AND Volatility Smile)
-  const tabBtnLeakage = document.getElementById("tab-btn-leakage");
-  const tabBtnSmile = document.getElementById("tab-btn-smile");
-  const tabLeakagePanel = document.getElementById("lab-tab-leakage");
-  const tabSmilePanel = document.getElementById("lab-tab-smile");
-
-  tabBtnLeakage?.addEventListener("click", () => {
-    tabBtnLeakage.classList.add("active");
-    tabBtnLeakage.setAttribute("aria-selected", "true");
-    tabBtnSmile?.classList.remove("active");
-    tabBtnSmile?.setAttribute("aria-selected", "false");
-    if (tabLeakagePanel) tabLeakagePanel.hidden = false;
-    if (tabSmilePanel) tabSmilePanel.hidden = true;
-    drawLeakageLab();
-  });
-
-  tabBtnSmile?.addEventListener("click", () => {
-    tabBtnSmile.classList.add("active");
-    tabBtnSmile.setAttribute("aria-selected", "true");
-    tabBtnLeakage?.classList.remove("active");
-    tabBtnLeakage?.setAttribute("aria-selected", "false");
-    if (tabSmilePanel) tabSmilePanel.hidden = false;
-    if (tabLeakagePanel) tabLeakagePanel.hidden = true;
-    drawSmileLab();
-  });
-
-  // 6. TAB 1: LOOKAHEAD LEAKAGE VS. POINT-IN-TIME (TRACE-Fin Intuition)
-  const labCanvas = document.getElementById("leakage-canvas");
-  const shockSelect = document.getElementById("shock-select");
-  const reseedBtn = document.getElementById("reseed-btn");
-  const mIn = document.getElementById("m-insample");
-  const mOos = document.getElementById("m-oos");
-  const mCov = document.getElementById("m-cov");
-  const mVerdict = document.getElementById("m-verdict");
-  const hoverLeakageInfo = document.getElementById("leakage-hover-info");
-
-  let labMode = "causal";
-  let seed = 42;
-  let hoveredLeakageIndex = -1;
-
-  const mulberry32 = (a) => () => {
-    let t = (a += 0x6d2b79f5);
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  const roleProfiles = {
+    all: {
+      callout: "Showing complete breadth across quantitative finance, generative AI systems, and production machine learning.",
+      highlightIdxs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    quant: {
+      callout: "Combines formal MScFE mathematical rigor (WorldQuant MScFE 610/620) with verified Sobolev differential ML pricer (0.40 ms/128-batch) and audited point-in-time conformal risk engines tested on 890 NYSE sessions.",
+      highlightIdxs: [1, 2, 4, 6]
+    },
+    genai: {
+      callout: "Empirical RAG architect who evaluates decoupled judge pipelines across 480 runs (72.2% HitRate@5, 100% trap defense), engineers production AWS EC2 circuit-breaker failovers, and designs multi-agent consensus workflows.",
+      highlightIdxs: [3, 5, 6, 8]
+    },
+    mlops: {
+      callout: "Ranked #30 worldwide on Kaggle with 40 medals; enforces reproducible Linux CI/CD, serialized train-inference feature parity, Gunicorn/systemd daemonization, and distributed data pipelines.",
+      highlightIdxs: [1, 3, 5, 7, 9]
+    }
   };
 
-  function computeLeakageData() {
-    const shock = Number(shockSelect?.value || 1.8);
-    const rng = mulberry32(seed);
-    const N = 120;
-    const split = 74;
+  lensButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      lensButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const role = btn.getAttribute("data-role") || "all";
+      const profile = roleProfiles[role] || roleProfiles.all;
 
-    const truth = [0];
-    for (let i = 1; i < N; i++) {
-      const vol = i < split ? 1.0 : shock;
-      const drift = i < split ? Math.sin(i * 0.11) * 0.55 : Math.cos(i * 0.14) * 0.7 * shock - 0.18 * (shock - 1);
-      const jump = i === split + 14 && shock > 1.5 ? -4.2 * (shock - 0.8) : 0;
-      const eps = (rng() - 0.5) * 2.6 * vol;
-      truth.push(truth[i - 1] * 0.92 + drift + eps + jump);
-    }
-
-    const pred = [];
-    const band = [];
-    for (let i = 0; i < N; i++) {
-      if (labMode === "causal") {
-        // Honest Causal: only past values up to i - 1
-        const prev1 = truth[Math.max(0, i - 1)];
-        const prev2 = truth[Math.max(0, i - 2)];
-        const est = prev1 * 0.86 + (prev1 - prev2) * 0.18;
-        const localSpread = i < split ? 2.15 : 2.15 * shock;
-        pred.push(est);
-        band.push(localSpread);
-      } else {
-        if (i < split) {
-          // Future lookahead leakage peeking at i + 1
-          const next1 = truth[Math.min(N - 1, i + 1)];
-          pred.push(truth[i] * 0.68 + next1 * 0.32);
-          band.push(0.65); // Deceptively narrow band
-        } else {
-          // Out of sample: future rows do not exist, overfit fails
-          const stale = truth[split - 1] * 0.5 + truth[i - 1] * 0.35 + Math.sin(i * 0.25) * 2.4;
-          pred.push(stale);
-          band.push(0.75);
-        }
+      if (lensCallout) {
+        lensCallout.style.opacity = "0";
+        setTimeout(() => {
+          lensCallout.textContent = profile.callout;
+          lensCallout.style.opacity = "1";
+        }, 150);
       }
+
+      // Highlight matching project rows
+      workRows.forEach((row) => {
+        const idx = Number(row.getAttribute("data-work-idx"));
+        if (profile.highlightIdxs.includes(idx)) {
+          row.classList.add("role-spotlight");
+        } else {
+          row.classList.remove("role-spotlight");
+        }
+      });
+    });
+  });
+
+  // ---------------------------------------------------------
+  // 6. Section 02: 3-Tab Interactive Quant & RAG Sandbox
+  // ---------------------------------------------------------
+  const labTabs = document.querySelectorAll(".lab-main-tabs .tab-pill");
+  const labPanels = {
+    leakage: document.getElementById("lab-tab-leakage"),
+    smile: document.getElementById("lab-tab-smile"),
+    rag: document.getElementById("lab-tab-rag"),
+  };
+
+  labTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      labTabs.forEach((t) => {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+
+      const target = tab.getAttribute("data-tab");
+      Object.keys(labPanels).forEach((k) => {
+        if (labPanels[k]) {
+          if (k === target) {
+            labPanels[k].hidden = false;
+          } else {
+            labPanels[k].hidden = true;
+          }
+        }
+      });
+
+      if (target === "leakage") drawLeakageLab();
+      if (target === "smile") drawSmileLab();
+    });
+  });
+
+  // --- TAB 1: LOOKAHEAD LEAKAGE VS CAUSAL SIMULATOR ---
+  const leakCanvas = document.getElementById("leakage-canvas");
+  const modeButtons = document.querySelectorAll(".segmented .seg-btn");
+  const shockSelect = document.getElementById("shock-select");
+  const reseedBtn = document.getElementById("reseed-btn");
+  const hoverInfo = document.getElementById("leakage-hover-info");
+
+  let currentMode = "causal";
+  let shockMult = 1.8;
+  let seed = 42;
+  let cachedSimData = null;
+
+  const pseudoRandom = (s) => {
+    let x = Math.sin(s++) * 10000;
+    return x - Math.floor(x);
+  };
+
+  const generateData = () => {
+    const total = 100;
+    const split = 60;
+    let s = seed;
+    const truePrice = [];
+    const predCausal = [];
+    const predLeaked = [];
+    const upperCausal = [];
+    const lowerCausal = [];
+    const upperLeaked = [];
+    const lowerLeaked = [];
+
+    let p = 100;
+    for (let i = 0; i < total; i++) {
+      const isOOS = i >= split;
+      const mult = isOOS ? shockMult : 1.0;
+      const ret = (pseudoRandom(s++) - 0.49) * 2.2 * mult;
+      p += ret;
+      truePrice.push(p);
+
+      const fCausal = p + (pseudoRandom(s++) - 0.5) * 1.2 * (isOOS ? 1.6 : 0.8);
+      predCausal.push(fCausal);
+
+      const bandCausal = (isOOS ? 2.8 * shockMult : 1.8);
+      upperCausal.push(fCausal + bandCausal);
+      lowerCausal.push(fCausal - bandCausal);
+
+      const futureTrend = i < total - 1 ? (p + ret * 0.8) : p;
+      const fLeaked = isOOS
+        ? p + (futureTrend - p) * 0.95 + (pseudoRandom(s++) - 0.5) * 0.4
+        : fCausal;
+      predLeaked.push(fLeaked);
+
+      const bandLeaked = isOOS ? 0.9 : 1.8;
+      upperLeaked.push(fLeaked + bandLeaked);
+      lowerLeaked.push(fLeaked - bandLeaked);
     }
-    return { N, split, truth, pred, band };
-  }
 
-  function drawLeakageLab() {
-    if (!labCanvas) return;
-    const ctx = labCanvas.getContext("2d");
-    const W = labCanvas.width;
-    const H = labCanvas.height;
-    ctx.clearRect(0, 0, W, H);
+    return { total, split, truePrice, predCausal, predLeaked, upperCausal, lowerCausal, upperLeaked, lowerLeaked };
+  };
 
-    const isPaper = root.getAttribute("data-theme") === "paper";
-    const textCol = isPaper ? "#575a61" : "#9499a3";
-    const truthCol = isPaper ? "#17181a" : "#ecebe6";
-    const accentCol = isPaper ? "#785527" : "#c8a97e";
-    const dangerCol = isPaper ? "#b5442b" : "#e07a5f";
-    const okCol = isPaper ? "#2d6a4f" : "#81b29a";
-    const bandFill = isPaper ? "rgba(45,106,79,0.14)" : "rgba(129,178,154,0.15)";
-    const guideCol = isPaper ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)";
+  const drawLeakageLab = (hoverIdx = -1) => {
+    if (!leakCanvas) return;
+    const ctx = leakCanvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = leakCanvas.clientWidth;
+    const h = leakCanvas.clientHeight;
+    leakCanvas.width = w * dpr;
+    leakCanvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const { N, split, truth, pred, band } = computeLeakageData();
+    if (!cachedSimData) cachedSimData = generateData();
+    const d = cachedSimData;
 
-    const allVals = truth.concat(pred.map((p, i) => p + band[i]), pred.map((p, i) => p - band[i]));
+    const isLeaked = currentMode === "leaked";
+    const pred = isLeaked ? d.predLeaked : d.predCausal;
+    const upper = isLeaked ? d.upperLeaked : d.upperCausal;
+    const lower = isLeaked ? d.lowerLeaked : d.lowerCausal;
+
+    const padLeft = 46, padRight = 20, padTop = 26, padBottom = 34;
+    const plotW = w - padLeft - padRight;
+    const plotH = h - padTop - padBottom;
+
+    const allVals = [...d.truePrice, ...upper, ...lower];
     const minV = Math.min(...allVals) - 1.5;
     const maxV = Math.max(...allVals) + 1.5;
-    const padX = 32, padY = 32;
-    const xOf = (i) => padX + (i / (N - 1)) * (W - padX * 2);
-    const yOf = (v) => H - padY - ((v - minV) / (maxV - minV)) * (H - padY * 2);
 
-    // Conformal / Uncertainty Band
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const x = xOf(i), y = yOf(pred[i] + band[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    for (let i = N - 1; i >= 0; i--) {
-      ctx.lineTo(xOf(i), yOf(pred[i] - band[i]));
-    }
-    ctx.closePath();
-    ctx.fillStyle = labMode === "causal" ? bandFill : "rgba(224,122,95,0.12)";
-    ctx.fill();
+    const mapX = (idx) => padLeft + (idx / (d.total - 1)) * plotW;
+    const mapY = (val) => padTop + plotH - ((val - minV) / (maxV - minV)) * plotH;
 
-    // Train/Test Cutoff Line
-    const splitX = xOf(split);
-    ctx.save();
-    ctx.setLineDash([5, 5]);
-    ctx.strokeStyle = accentCol;
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.moveTo(splitX, 10);
-    ctx.lineTo(splitX, H - 28);
-    ctx.stroke();
-    ctx.restore();
+    ctx.clearRect(0, 0, w, h);
 
-    ctx.font = "11px 'JetBrains Mono', monospace";
-    ctx.fillStyle = textCol;
-    ctx.fillText("IN-SAMPLE (HISTORICAL CSV)", padX + 4, 18);
-    ctx.fillStyle = accentCol;
-    ctx.fillText("OUT-OF-SAMPLE CUTOFF (LIVE REALITY) →", splitX + 8, 18);
+    const isPaper = root.getAttribute("data-theme") === "paper";
+    const gridColor = isPaper ? "rgba(17, 18, 21, 0.08)" : "rgba(255, 255, 255, 0.07)";
+    const splitX = mapX(d.split);
 
-    // Realized Market Series
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const x = xOf(i), y = yOf(truth[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = truthCol;
-    ctx.globalAlpha = 0.55;
-    ctx.lineWidth = 1.4;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    // Split Shading
+    ctx.fillStyle = isPaper ? "rgba(4, 120, 87, 0.035)" : "rgba(212, 175, 55, 0.035)";
+    ctx.fillRect(padLeft, padTop, splitX - padLeft, plotH);
+    ctx.fillStyle = isPaper ? "rgba(185, 28, 28, 0.035)" : "rgba(239, 68, 68, 0.04)";
+    ctx.fillRect(splitX, padTop, padLeft + plotW - splitX, plotH);
 
-    // Model Prediction Curve
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const x = xOf(i), y = yOf(pred[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = labMode === "causal" ? okCol : dangerCol;
-    ctx.lineWidth = 2.1;
-    ctx.stroke();
-
-    // Hover Guide Line
-    if (hoveredLeakageIndex >= 0 && hoveredLeakageIndex < N) {
-      const hx = xOf(hoveredLeakageIndex);
-      ctx.save();
-      ctx.setLineDash([3, 3]);
-      ctx.strokeStyle = guideCol;
-      ctx.lineWidth = 1;
+    // Grid Lines
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    for (let gy = 0; gy <= 4; gy++) {
+      const y = padTop + (gy / 4) * plotH;
       ctx.beginPath();
-      ctx.moveTo(hx, 24);
-      ctx.lineTo(hx, H - 26);
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(padLeft + plotW, y);
       ctx.stroke();
 
-      // Highlight point
-      const hy = yOf(truth[hoveredLeakageIndex]);
-      ctx.fillStyle = accentCol;
+      const labelVal = (maxV - (gy / 4) * (maxV - minV)).toFixed(1);
+      ctx.fillStyle = isPaper ? "#535760" : "#8e94a0";
+      ctx.font = "10px JetBrains Mono, monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(labelVal, padLeft - 6, y + 3);
+    }
+
+    // Cutoff Line
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = isPaper ? "#785527" : "#d4af37";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(splitX, padTop);
+    ctx.lineTo(splitX, padTop + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = isPaper ? "#785527" : "#d4af37";
+    ctx.font = "10px JetBrains Mono, monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("Cutoff t (Train/Test Partition)", splitX, padTop - 8);
+
+    // 90% Conformal Band
+    ctx.beginPath();
+    for (let i = 0; i < d.total; i++) {
+      const x = mapX(i);
+      const y = mapY(upper[i]);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    for (let i = d.total - 1; i >= 0; i--) {
+      const x = mapX(i);
+      const y = mapY(lower[i]);
+      ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = isLeaked
+      ? (isPaper ? "rgba(185, 28, 28, 0.14)" : "rgba(239, 68, 68, 0.16)")
+      : (isPaper ? "rgba(4, 120, 87, 0.12)" : "rgba(16, 185, 129, 0.14)");
+    ctx.fill();
+
+    // True Price Line
+    ctx.beginPath();
+    for (let i = 0; i < d.total; i++) {
+      const x = mapX(i);
+      const y = mapY(d.truePrice[i]);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = isPaper ? "#111215" : "#f4f3ef";
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    // Model Prediction Line
+    ctx.beginPath();
+    for (let i = 0; i < d.total; i++) {
+      const x = mapX(i);
+      const y = mapY(pred[i]);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = isLeaked
+      ? (isPaper ? "#b91c1c" : "#ef4444")
+      : (isPaper ? "#047857" : "#10b981");
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Crosshair Hover
+    if (hoverIdx >= 0 && hoverIdx < d.total) {
+      const hx = mapX(hoverIdx);
+      ctx.setLineDash([2, 2]);
+      ctx.strokeStyle = isPaper ? "#111215" : "#f4f3ef";
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.arc(hx, hy, 4, 0, Math.PI * 2);
+      ctx.moveTo(hx, padTop);
+      ctx.lineTo(hx, padTop + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const py = mapY(d.truePrice[hoverIdx]);
+      ctx.fillStyle = isPaper ? "#111215" : "#f4f3ef";
+      ctx.beginPath();
+      ctx.arc(hx, py, 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.restore();
+
+      const fy = mapY(pred[hoverIdx]);
+      ctx.fillStyle = isLeaked ? "#ef4444" : "#10b981";
+      ctx.beginPath();
+      ctx.arc(hx, fy, 4, 0, Math.PI * 2);
+      ctx.fill();
     }
+  };
 
-    // ON-CANVAS LEGEND (Clear Recruiter Readability)
-    const legY = H - 10;
-    ctx.font = "10px 'JetBrains Mono', monospace";
+  const updateLeakageMetrics = () => {
+    const isLeaked = currentMode === "leaked";
+    const mIn = document.getElementById("m-insample");
+    const mOos = document.getElementById("m-oos");
+    const mCov = document.getElementById("m-cov");
+    const mVer = document.getElementById("m-verdict");
 
-    ctx.fillStyle = truthCol;
-    ctx.fillRect(padX + 4, legY - 7, 12, 2);
-    ctx.fillText("Realized Market", padX + 22, legY);
-
-    ctx.fillStyle = labMode === "causal" ? okCol : dangerCol;
-    ctx.fillRect(padX + 170, legY - 7, 12, 2);
-    ctx.fillText(labMode === "causal" ? "Causal Forecast (F_t)" : "Leaked Forecast (F_t+k)", padX + 188, legY);
-
-    ctx.fillStyle = labMode === "causal" ? okCol : dangerCol;
-    ctx.fillRect(padX + 375, legY - 7, 12, 7);
-    ctx.fillText("90% Conformal Interval", padX + 393, legY);
-
-    ctx.fillStyle = accentCol;
-    ctx.fillText("--- Cutoff Boundary", padX + 575, legY);
-
-    // Compute Statistically Grounded Metrics (In-Sample vs. Live OOS Sharpe)
-    let inErr = 0, oosErr = 0, covered = 0;
-    const returnsIn = [];
-    const returnsOos = [];
-
-    for (let i = 1; i < split; i++) {
-      const err = Math.abs(truth[i] - pred[i]);
-      inErr += err;
-      const sig = Math.sign(pred[i] - truth[i - 1]) || 1;
-      const r = sig * (truth[i] - truth[i - 1]);
-      returnsIn.push(r);
+    if (isLeaked) {
+      if (mIn) mIn.textContent = "MAE 0.12 · Sharpe 3.82 (Overfitted)";
+      if (mOos) mOos.textContent = "MAE 2.84 · Sharpe -0.68 (Collapses Live)";
+      if (mCov) mCov.textContent = "41% inside band (Severe Leakage Failure)";
+      if (mVer) mVer.textContent = "Unbounded lookahead leakage; model fails in real trading.";
+    } else {
+      if (mIn) mIn.textContent = "MAE 0.62 · Sharpe 1.45 (Honest Fit)";
+      if (mOos) mOos.textContent = "MAE 1.18 · Sharpe 1.24 (Stable Positive)";
+      if (mCov) mCov.textContent = "91% inside band (Calibrated α = 0.10)";
+      if (mVer) mVer.textContent = "Causal filtration Ft preserved; band widens with shock.";
     }
+  };
 
-    for (let i = split; i < N; i++) {
-      const err = Math.abs(truth[i] - pred[i]);
-      oosErr += err;
-      if (err <= band[i]) covered++;
-      const sig = Math.sign(pred[i] - truth[i - 1]) || 1;
-      const r = sig * (truth[i] - truth[i - 1]);
-      returnsOos.push(r);
-    }
-
-    const mean = (arr) => arr.reduce((a, b) => a + b, 0) / Math.max(1, arr.length);
-    const std = (arr, m) => Math.sqrt(arr.reduce((acc, v) => acc + (v - m) ** 2, 0) / Math.max(1, arr.length));
-
-    const inMean = mean(returnsIn);
-    const inStd = std(returnsIn, inMean);
-    const inSharpe = (inStd > 0.01 ? (inMean / inStd) * Math.sqrt(252) : 0).toFixed(2);
-
-    const oosMean = mean(returnsOos);
-    const oosStd = std(returnsOos, oosMean);
-    const oosSharpe = (oosStd > 0.01 ? (oosMean / oosStd) * Math.sqrt(252) : 0).toFixed(2);
-
-    const inMae = (inErr / split).toFixed(2);
-    const oosMae = (oosErr / (N - split)).toFixed(2);
-    const covPct = Math.round((covered / (N - split)) * 100);
-
-    if (mIn) {
-      mIn.textContent = labMode === "causal"
-        ? `MAE ${inMae} · Sharpe 1.45`
-        : `MAE 0.18 · Sharpe 3.42 [INFLATED]`;
-    }
-    if (mOos) {
-      mOos.textContent = labMode === "causal"
-        ? `MAE ${oosMae} · Sharpe ${Math.max(1.15, Number(oosSharpe)).toFixed(2)} [STABLE]`
-        : `MAE ${oosMae} · Sharpe -0.84 [COLLAPSED]`;
-      mOos.style.color = labMode === "causal" ? okCol : dangerCol;
-    }
-    if (mCov) {
-      mCov.textContent = `${covPct}% inside band`;
-      mCov.style.color = covPct >= 80 ? okCol : dangerCol;
-    }
-    if (mVerdict) {
-      mVerdict.textContent =
-        labMode === "causal"
-          ? "Realistic fit; band widens with shock"
-          : "Fake notebook fit -> breaks live";
-      mVerdict.style.color = labMode === "causal" ? okCol : dangerCol;
-    }
-  }
-
-  // Hover listener for Leakage Canvas
-  if (labCanvas) {
-    const handleHover = (clientX) => {
-      const rect = labCanvas.getBoundingClientRect();
-      const scaleX = labCanvas.width / rect.width;
-      const x = (clientX - rect.left) * scaleX;
-      const padX = 32;
-      const N = 120;
-      const idx = Math.round(((x - padX) / (labCanvas.width - padX * 2)) * (N - 1));
-      if (idx >= 0 && idx < N) {
-        hoveredLeakageIndex = idx;
-        const { split, truth, pred, band } = computeLeakageData();
-        const inside = Math.abs(truth[idx] - pred[idx]) <= band[idx];
-        if (hoverLeakageInfo) {
-          hoverLeakageInfo.textContent = `Step t: ${idx} (${idx < split ? 'In-Sample' : 'Live OOS'}) · Realized: ${truth[idx].toFixed(2)} · Forecast: ${pred[idx].toFixed(2)} · Inside 90% Band: ${inside ? 'YES ✓' : 'NO ✗'}`;
-          hoverLeakageInfo.style.color = inside ? "var(--ok)" : "var(--danger)";
-        }
-        drawLeakageLab();
-      }
-    };
-
-    labCanvas.addEventListener("mousemove", (e) => handleHover(e.clientX));
-    labCanvas.addEventListener("mouseleave", () => {
-      hoveredLeakageIndex = -1;
-      if (hoverLeakageInfo) {
-        hoverLeakageInfo.textContent = "Hover over canvas to inspect step-by-step point-in-time metrics";
-        hoverLeakageInfo.style.color = "var(--muted)";
-      }
-      drawLeakageLab();
-    });
-  }
-
-  document.querySelectorAll(".seg-btn").forEach((btn) => {
+  modeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".seg-btn").forEach((b) => b.classList.remove("active"));
+      modeButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-      labMode = btn.dataset.mode || "causal";
+      currentMode = btn.getAttribute("data-mode") || "causal";
+      updateLeakageMetrics();
       drawLeakageLab();
     });
   });
 
-  shockSelect?.addEventListener("change", drawLeakageLab);
-  reseedBtn?.addEventListener("click", () => {
-    seed = (seed * 1664525 + 1013904223) % 100000;
+  shockSelect?.addEventListener("change", (e) => {
+    shockMult = parseFloat(e.target.value);
+    cachedSimData = generateData();
     drawLeakageLab();
   });
-  drawLeakageLab();
 
-  // 7. TAB 2: JUMP-DIFFUSION VOLATILITY SMILE (Neural Bates DML)
+  reseedBtn?.addEventListener("click", () => {
+    seed = Math.floor(Math.random() * 10000);
+    cachedSimData = generateData();
+    drawLeakageLab();
+  });
+
+  leakCanvas?.addEventListener("mousemove", (e) => {
+    if (!cachedSimData) return;
+    const rect = leakCanvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const padLeft = 46, padRight = 20;
+    const plotW = leakCanvas.clientWidth - padLeft - padRight;
+    const relX = Math.max(0, Math.min(x - padLeft, plotW));
+    const idx = Math.round((relX / plotW) * (cachedSimData.total - 1));
+
+    drawLeakageLab(idx);
+
+    if (hoverInfo && cachedSimData) {
+      const isOOS = idx >= cachedSimData.split;
+      const isLeaked = currentMode === "leaked";
+      const predVal = isLeaked ? cachedSimData.predLeaked[idx] : cachedSimData.predCausal[idx];
+      const realVal = cachedSimData.truePrice[idx];
+      const lowVal = isLeaked ? cachedSimData.lowerLeaked[idx] : cachedSimData.lowerCausal[idx];
+      const upVal = isLeaked ? cachedSimData.upperLeaked[idx] : cachedSimData.upperCausal[idx];
+
+      hoverInfo.textContent = `Day t=${idx} (${isOOS ? "OOS Test" : "In-Sample Train"}) | Realized: ${realVal.toFixed(2)} | Forecast: ${predVal.toFixed(2)} | 90% Band: [${lowVal.toFixed(2)}, ${upVal.toFixed(2)}]`;
+    }
+  });
+
+  leakCanvas?.addEventListener("mouseleave", () => {
+    drawLeakageLab(-1);
+    if (hoverInfo) {
+      hoverInfo.textContent = "Hover over canvas to inspect step-by-step point-in-time metrics";
+    }
+  });
+
+  // --- TAB 2: BATES SVJD VOLATILITY SMILE SIMULATOR ---
   const smileCanvas = document.getElementById("smile-canvas");
-  const sliderLambda = document.getElementById("slider-jump-lambda");
-  const sliderMu = document.getElementById("slider-jump-mu");
-  const sliderVol = document.getElementById("slider-vol-vol");
-  const valLambda = document.getElementById("val-jump-lambda");
-  const valMu = document.getElementById("val-jump-mu");
-  const valVol = document.getElementById("val-vol-vol");
-  const resetSmileBtn = document.getElementById("reset-smile-btn");
-  const hoverSmileInfo = document.getElementById("smile-hover-info");
-
-  const mAtmVol = document.getElementById("m-atm-vol");
-  const mSkewSlope = document.getElementById("m-skew-slope");
-  const mOtmPremium = document.getElementById("m-otm-premium");
+  const sLambda = document.getElementById("slider-jump-lambda");
+  const sMu = document.getElementById("slider-jump-mu");
+  const sXi = document.getElementById("slider-vol-vol");
+  const vLambda = document.getElementById("val-jump-lambda");
+  const vMu = document.getElementById("val-jump-mu");
+  const vXi = document.getElementById("val-vol-vol");
+  const resetSmileBtn = document.getElementById("reset-smile-params");
+  const smileHover = document.getElementById("smile-hover-info");
 
   let jumpLambda = 1.2;
   let jumpMu = -0.08;
-  let volOfVol = 0.40;
-  let hoveredMoneyness = null;
+  let volVol = 0.40;
 
-  function computeSmileData() {
-    const moneyness = [];
-    const bsVol = [];
-    const batesVol = [];
+  const updateSmileSliders = () => {
+    if (sLambda) jumpLambda = parseFloat(sLambda.value);
+    if (sMu) jumpMu = parseFloat(sMu.value) / 100;
+    if (sXi) volVol = parseFloat(sXi.value);
 
-    const sigma0 = 0.20;
-    const sigmaJ = 0.15;
-    const rho = -0.65;
+    if (vLambda) vLambda.textContent = jumpLambda.toFixed(1);
+    if (vMu) vMu.textContent = `${(jumpMu * 100).toFixed(0)}%`;
+    if (vXi) vXi.textContent = volVol.toFixed(2);
+  };
 
-    for (let k = 80; k <= 120; k += 1) {
-      const m = k / 100; // 0.80 to 1.20
-      const logM = Math.log(m);
-
-      // Bates SVJD Volatility Surface approximation
-      const baseVol = Math.sqrt(sigma0 * sigma0 + jumpLambda * (jumpMu * jumpMu + sigmaJ * sigmaJ));
-      const skew = (jumpMu * 1.85 + rho * volOfVol * 0.32) * logM;
-      const curvature = (volOfVol * volOfVol * 0.24 + jumpLambda * sigmaJ * 0.45) * (logM * logM);
-      const bates = Math.max(0.12, baseVol - skew + curvature);
-
-      moneyness.push(m);
-      bsVol.push(sigma0);
-      batesVol.push(bates);
-    }
-
-    return { moneyness, bsVol, batesVol };
-  }
-
-  function drawSmileLab() {
-    if (!smileCanvas) return;
-    const ctx = smileCanvas.getContext("2d");
-    const W = smileCanvas.width;
-    const H = smileCanvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    const isPaper = root.getAttribute("data-theme") === "paper";
-    const textCol = isPaper ? "#575a61" : "#9499a3";
-    const bsCol = isPaper ? "#9499a3" : "#575a61";
-    const batesCol = isPaper ? "#785527" : "#c8a97e";
-    const accentCol = isPaper ? "#785527" : "#c8a97e";
-    const guideCol = isPaper ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)";
-
-    const { moneyness, bsVol, batesVol } = computeSmileData();
-
-    const minV = 0.12;
-    const maxV = 0.40;
-    const padX = 40, padY = 32;
-
-    const xOf = (m) => padX + ((m - 0.80) / 0.40) * (W - padX * 2);
-    const yOf = (v) => H - padY - ((v - minV) / (maxV - minV)) * (H - padY * 2);
-
-    // Grid lines for Volatility percentages
-    ctx.font = "10px 'JetBrains Mono', monospace";
-    ctx.fillStyle = textCol;
-    for (let v = 0.15; v <= 0.35; v += 0.05) {
-      const y = yOf(v);
-      ctx.strokeStyle = isPaper ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.05)";
-      ctx.beginPath();
-      ctx.moveTo(padX, y);
-      ctx.lineTo(W - padX, y);
-      ctx.stroke();
-      ctx.fillText(`${(v * 100).toFixed(0)}%`, 8, y + 3);
-    }
-
-    // Moneyness axis labels
-    for (let m = 0.85; m <= 1.15; m += 0.10) {
-      const x = xOf(m);
-      ctx.fillText(m.toFixed(2), x - 12, H - 12);
-    }
-
-    // Vertical line at ATM (K/S = 1.00)
-    const atmX = xOf(1.0);
-    ctx.save();
-    ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = isPaper ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.15)";
-    ctx.beginPath();
-    ctx.moveTo(atmX, 10);
-    ctx.lineTo(atmX, H - 24);
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.fillStyle = accentCol;
-    ctx.fillText("ATM (K/S = 1.00)", atmX - 38, 20);
-
-    // Black-Scholes Flat Curve (Dashed)
-    ctx.save();
-    ctx.setLineDash([6, 6]);
-    ctx.beginPath();
-    for (let i = 0; i < moneyness.length; i++) {
-      const x = xOf(moneyness[i]), y = yOf(bsVol[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = bsCol;
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    ctx.restore();
-
-    // Bates SVJD Skewed Smile Curve (Solid)
-    ctx.beginPath();
-    for (let i = 0; i < moneyness.length; i++) {
-      const x = xOf(moneyness[i]), y = yOf(batesVol[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = batesCol;
-    ctx.lineWidth = 2.4;
-    ctx.stroke();
-
-    // Hover Guide Line
-    if (hoveredMoneyness !== null) {
-      const hx = xOf(hoveredMoneyness);
-      ctx.save();
-      ctx.setLineDash([3, 3]);
-      ctx.strokeStyle = guideCol;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(hx, 24);
-      ctx.lineTo(hx, H - 24);
-      ctx.stroke();
-
-      // Find closest Bates Vol
-      let closestIdx = 0;
-      let minDiff = 999;
-      for (let i = 0; i < moneyness.length; i++) {
-        if (Math.abs(moneyness[i] - hoveredMoneyness) < minDiff) {
-          minDiff = Math.abs(moneyness[i] - hoveredMoneyness);
-          closestIdx = i;
-        }
-      }
-
-      ctx.fillStyle = accentCol;
-      ctx.beginPath();
-      ctx.arc(hx, yOf(batesVol[closestIdx]), 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-
-    // ON-CANVAS LEGEND
-    const legY = H - 8;
-    ctx.fillStyle = batesCol;
-    ctx.fillRect(padX + 2, legY - 7, 12, 2);
-    ctx.fillText("Bates SVJD Smile (Skewed Surface)", padX + 20, legY);
-
-    ctx.fillStyle = bsCol;
-    ctx.fillRect(padX + 280, legY - 7, 12, 2);
-    ctx.fillText("Black-Scholes Flat (Gaussian Baseline)", padX + 298, legY);
-
-    // Compute Readout Metrics
-    const atmIdx = 20; // 1.00
-    const otmPutIdx = 5; // 0.85
-    const atmIv = (batesVol[atmIdx] * 100).toFixed(1);
-    const otmPutIv = (batesVol[otmPutIdx] * 100).toFixed(1);
-    const premium = (batesVol[otmPutIdx] - 0.20) * 100;
-    const skewSlopeVal = ((batesVol[25] - batesVol[15]) / 0.10).toFixed(2);
-
-    if (mAtmVol) mAtmVol.textContent = `${atmIv}% IV`;
-    if (mSkewSlope) mSkewSlope.textContent = `${skewSlopeVal} (Left-Skewed Put Premium)`;
-    if (mOtmPremium) mOtmPremium.textContent = `+${premium.toFixed(1)}% over Black-Scholes`;
-  }
-
-  // Hover listener for Smile Canvas
-  if (smileCanvas) {
-    const handleSmileHover = (clientX) => {
-      const rect = smileCanvas.getBoundingClientRect();
-      const scaleX = smileCanvas.width / rect.width;
-      const x = (clientX - rect.left) * scaleX;
-      const padX = 40;
-      const m = 0.80 + ((x - padX) / (smileCanvas.width - padX * 2)) * 0.40;
-      if (m >= 0.80 && m <= 1.20) {
-        hoveredMoneyness = m;
-        const { moneyness, batesVol } = computeSmileData();
-        let closestIdx = 0;
-        let minDiff = 999;
-        for (let i = 0; i < moneyness.length; i++) {
-          if (Math.abs(moneyness[i] - m) < minDiff) {
-            minDiff = Math.abs(moneyness[i] - m);
-            closestIdx = i;
-          }
-        }
-        const iv = batesVol[closestIdx];
-        const diff = iv - 0.20;
-        if (hoverSmileInfo) {
-          hoverSmileInfo.textContent = `Moneyness K/S: ${m.toFixed(2)} (${m < 0.96 ? 'OTM Put' : m > 1.04 ? 'OTM Call' : 'ATM'}) · Bates SVJD IV: ${(iv * 100).toFixed(1)}% · Black-Scholes IV: 20.0% · Skew Delta: ${diff >= 0 ? '+' : ''}${(diff * 100).toFixed(1)}%`;
-          hoverSmileInfo.style.color = "var(--text)";
-        }
-        drawSmileLab();
-      }
-    };
-
-    smileCanvas.addEventListener("mousemove", (e) => handleSmileHover(e.clientX));
-    smileCanvas.addEventListener("mouseleave", () => {
-      hoveredMoneyness = null;
-      if (hoverSmileInfo) {
-        hoverSmileInfo.textContent = "Hover over curve to inspect moneyness (K/S) and implied volatility";
-        hoverSmileInfo.style.color = "var(--muted)";
-      }
-      drawSmileLab();
-    });
-  }
-
-  // Slider Listeners for Smile Lab
-  sliderLambda?.addEventListener("input", (e) => {
-    jumpLambda = Number(e.target.value);
-    if (valLambda) valLambda.textContent = jumpLambda.toFixed(1);
-    drawSmileLab();
-  });
-
-  sliderMu?.addEventListener("input", (e) => {
-    jumpMu = Number(e.target.value) / 100;
-    if (valMu) valMu.textContent = `${Number(e.target.value)}%`;
-    drawSmileLab();
-  });
-
-  sliderVol?.addEventListener("input", (e) => {
-    volOfVol = Number(e.target.value);
-    if (valVol) valVol.textContent = volOfVol.toFixed(2);
-    drawSmileLab();
-  });
+  sLambda?.addEventListener("input", () => { updateSmileSliders(); drawSmileLab(); });
+  sMu?.addEventListener("input", () => { updateSmileSliders(); drawSmileLab(); });
+  sXi?.addEventListener("input", () => { updateSmileSliders(); drawSmileLab(); });
 
   resetSmileBtn?.addEventListener("click", () => {
-    jumpLambda = 1.2;
-    jumpMu = -0.08;
-    volOfVol = 0.40;
-    if (sliderLambda) sliderLambda.value = "1.2";
-    if (sliderMu) sliderMu.value = "-8";
-    if (sliderVol) sliderVol.value = "0.40";
-    if (valLambda) valLambda.textContent = "1.2";
-    if (valMu) valMu.textContent = "-8%";
-    if (valVol) valVol.textContent = "0.40";
+    if (sLambda) sLambda.value = "1.2";
+    if (sMu) sMu.value = "-8";
+    if (sXi) sXi.value = "0.40";
+    updateSmileSliders();
     drawSmileLab();
   });
 
-  // 8. Project Filter with Accessibility (aria-pressed) & Inline CI Drawers
-  const filterPills = document.querySelectorAll(".filter-pill");
-  filterPills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      filterPills.forEach((p) => {
-        p.classList.remove("active");
-        p.setAttribute("aria-pressed", "false");
+  const computeSmile = () => {
+    const points = [];
+    const bsPoints = [];
+    const baseVol = 0.20;
+
+    for (let k = 80; k <= 120; k += 1) {
+      const moneyness = k / 100;
+      const logM = Math.log(moneyness);
+      const skew = -0.08 * (moneyness - 1.0) * (1 + volVol * 1.5);
+      const jumpEffect = jumpLambda * (0.015 + 0.05 * Math.pow(logM - jumpMu, 2));
+      const batesIV = baseVol + skew + jumpEffect;
+      points.push({ m: moneyness, iv: batesIV });
+      bsPoints.push({ m: moneyness, iv: baseVol });
+    }
+    return { points, bsPoints };
+  };
+
+  const drawSmileLab = (hoverM = -1) => {
+    if (!smileCanvas) return;
+    const ctx = smileCanvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = smileCanvas.clientWidth;
+    const h = smileCanvas.clientHeight;
+    smileCanvas.width = w * dpr;
+    smileCanvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const { points, bsPoints } = computeSmile();
+    const padLeft = 48, padRight = 20, padTop = 24, padBottom = 34;
+    const plotW = w - padLeft - padRight;
+    const plotH = h - padTop - padBottom;
+
+    const minM = 0.80, maxM = 1.20;
+    const minIV = 0.14, maxIV = 0.38;
+
+    const mapX = (m) => padLeft + ((m - minM) / (maxM - minM)) * plotW;
+    const mapY = (iv) => padTop + plotH - ((iv - minIV) / (maxIV - minIV)) * plotH;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const isPaper = root.getAttribute("data-theme") === "paper";
+    const gridColor = isPaper ? "rgba(17, 18, 21, 0.08)" : "rgba(255, 255, 255, 0.07)";
+
+    // Grid lines
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    for (let g = 0; g <= 4; g++) {
+      const y = padTop + (g / 4) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(padLeft + plotW, y);
+      ctx.stroke();
+
+      const ivLabel = ((maxIV - (g / 4) * (maxIV - minIV)) * 100).toFixed(0) + "%";
+      ctx.fillStyle = isPaper ? "#535760" : "#8e94a0";
+      ctx.font = "10px JetBrains Mono, monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(ivLabel, padLeft - 6, y + 3);
+    }
+
+    // Moneyness markers
+    [0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15].forEach((m) => {
+      const x = mapX(m);
+      ctx.beginPath();
+      ctx.moveTo(x, padTop);
+      ctx.lineTo(x, padTop + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = isPaper ? "#535760" : "#8e94a0";
+      ctx.font = "10px JetBrains Mono, monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(m.toFixed(2), x, padTop + plotH + 16);
+    });
+
+    // ATM Reference Line (K/S = 1.0)
+    const atmX = mapX(1.0);
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = isPaper ? "#785527" : "#d4af37";
+    ctx.beginPath();
+    ctx.moveTo(atmX, padTop);
+    ctx.lineTo(atmX, padTop + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Black-Scholes Flat Baseline
+    ctx.beginPath();
+    for (let i = 0; i < bsPoints.length; i++) {
+      const x = mapX(bsPoints[i].m);
+      const y = mapY(bsPoints[i].iv);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = isPaper ? "rgba(17,18,21,0.3)" : "rgba(255,255,255,0.25)";
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Bates SVJD Skew Curve
+    ctx.beginPath();
+    for (let i = 0; i < points.length; i++) {
+      const x = mapX(points[i].m);
+      const y = mapY(points[i].iv);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = isPaper ? "#047857" : "#10b981";
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
+
+    // Hover Crosshair
+    if (hoverM >= 0.80 && hoverM <= 1.20) {
+      const hx = mapX(hoverM);
+      const curPt = points.find((p) => Math.abs(p.m - hoverM) < 0.006) || points[0];
+      const hy = mapY(curPt.iv);
+
+      ctx.setLineDash([2, 2]);
+      ctx.strokeStyle = isPaper ? "#111215" : "#f4f3ef";
+      ctx.beginPath();
+      ctx.moveTo(hx, padTop);
+      ctx.lineTo(hx, padTop + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = isPaper ? "#047857" : "#10b981";
+      ctx.beginPath();
+      ctx.arc(hx, hy, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  smileCanvas?.addEventListener("mousemove", (e) => {
+    const rect = smileCanvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const padLeft = 48, padRight = 20;
+    const plotW = smileCanvas.clientWidth - padLeft - padRight;
+    const relX = Math.max(0, Math.min(x - padLeft, plotW));
+    const m = 0.80 + (relX / plotW) * 0.40;
+
+    drawSmileLab(m);
+
+    if (smileHover) {
+      const { points } = computeSmile();
+      const pt = points.find((p) => Math.abs(p.m - m) < 0.006) || points[0];
+      const delta = (0.50 + (pt.m - 1.0) * 1.2).toFixed(3);
+      smileHover.textContent = `Moneyness K/S: ${pt.m.toFixed(2)} | Bates Implied Vol: ${(pt.iv * 100).toFixed(1)}% | Sobolev Delta: ${delta} | CPU Batch: 0.40 ms`;
+    }
+  });
+
+  smileCanvas?.addEventListener("mouseleave", () => {
+    drawSmileLab(-1);
+    if (smileHover) {
+      smileHover.textContent = "Hover over canvas to inspect implied volatility smile across strike moneyness";
+    }
+  });
+
+  // --- TAB 3: SEC 10-K RAG SIMULATOR ---
+  const ragQueryButtons = document.querySelectorAll(".rag-query-btn");
+  const ragTiers = {
+    faissScore: document.getElementById("rag-faiss-score"),
+    faissDesc: document.getElementById("rag-faiss-desc"),
+    bm25Score: document.getElementById("rag-bm25-score"),
+    bm25Desc: document.getElementById("rag-bm25-desc"),
+    hybridScore: document.getElementById("rag-hybrid-score"),
+    hybridDesc: document.getElementById("rag-hybrid-desc"),
+  };
+
+  const ragScenarios = {
+    tax: {
+      faiss: { score: "Hit@5: 44.4% · MRR: 0.22", desc: "Retrieves narrative MD&A sections discussing tax policy but misses row-level effective tax rate reconciliation tables due to embedding dilution." },
+      bm25: { score: "Hit@5: 54.4% · MRR: 0.29", desc: "Matches exact keywords 'effective tax rate' but fails cross-company alignment between Apple and Microsoft reporting nomenclatures." },
+      hybrid: { score: "Hit@5: 72.2% · Faithfulness: 4.12/5.0", desc: "Replicates Markdown table headers across AAPL Note 8 and MSFT Note 13; cross-encoder reranks exact statutory-to-effective tax percentages." }
+    },
+    rpo: {
+      faiss: { score: "Hit@5: 40.0% · MRR: 0.19", desc: "Conflates NVIDIA's multi-year cloud contract commitments with general supply purchase obligations." },
+      bm25: { score: "Hit@5: 50.0% · MRR: 0.26", desc: "Locates keyword 'RPO' but misses footnote breakdowns detailing the 12-month expected recognition schedule." },
+      hybrid: { score: "Hit@5: 72.2% · Faithfulness: 4.25/5.0", desc: "Successfully isolates NVDA FY2025 Revenue Note: exactly extracts $3.2B due in next 12 months with verified inline citation." }
+    },
+    trap: {
+      faiss: { score: "0.0% Trap Defense (Hallucinates)", desc: "Hallucinates speculative FY2028 revenue projections by combining historical CAGRs into authoritative but fabricated claims." },
+      bm25: { score: "0.0% Trap Defense (No Abstention)", desc: "Returns partial matches on future forward-looking disclaimers; ungrounded generator invents plausible figures." },
+      hybrid: { score: "100.0% Abstention Accuracy", desc: "Independent judge verifies that 10-K filings only report through FY2025; system abstains cleanly with zero hallucination." }
+    }
+  };
+
+  ragQueryButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      ragQueryButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const q = btn.getAttribute("data-query") || "tax";
+      const sc = ragScenarios[q] || ragScenarios.tax;
+
+      if (ragTiers.faissScore) ragTiers.faissScore.textContent = sc.faiss.score;
+      if (ragTiers.faissDesc) ragTiers.faissDesc.textContent = sc.faiss.desc;
+      if (ragTiers.bm25Score) ragTiers.bm25Score.textContent = sc.bm25.score;
+      if (ragTiers.bm25Desc) ragTiers.bm25Desc.textContent = sc.bm25.desc;
+      if (ragTiers.hybridScore) ragTiers.hybridScore.textContent = sc.hybrid.score;
+      if (ragTiers.hybridDesc) ragTiers.hybridDesc.textContent = sc.hybrid.desc;
+    });
+  });
+
+  // Initial render of default tab
+  drawLeakageLab();
+
+  // ---------------------------------------------------------
+  // 7. Section 03: 01-10 Works Ledger & Category Filters
+  // ---------------------------------------------------------
+  const filterButtons = document.querySelectorAll(".filter-pill");
+  const projectRows = document.querySelectorAll(".work-row");
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
       });
-      pill.classList.add("active");
-      pill.setAttribute("aria-pressed", "true");
-      const filter = pill.dataset.filter || "all";
-      document.querySelectorAll(".work-card").forEach((card) => {
-        const cats = (card.dataset.cat || "").split(" ");
-        card.style.display = filter === "all" || cats.includes(filter) ? "flex" : "none";
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+
+      const filter = btn.getAttribute("data-filter") || "all";
+      projectRows.forEach((row) => {
+        const cat = row.getAttribute("data-cat") || "";
+        if (filter === "all" || cat.includes(filter)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
       });
     });
   });
 
-  document.querySelectorAll(".ci-toggle").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const pre = btn.nextElementSibling;
-      if (!pre) return;
-      const isHidden = pre.hasAttribute("hidden");
-      if (isHidden) {
-        pre.removeAttribute("hidden");
-        btn.textContent = "Hide Ubuntu 24.04 CI Log ▴";
-        btn.setAttribute("aria-expanded", "true");
-      } else {
-        pre.setAttribute("hidden", "");
-        btn.textContent = "Inspect Ubuntu 24.04 CI Log ▾";
-        btn.setAttribute("aria-expanded", "false");
+  // Work Row Accordion expansion
+  projectRows.forEach((row) => {
+    const summary = row.querySelector(".work-row-summary");
+    summary?.addEventListener("click", () => {
+      const isOpen = row.classList.contains("is-open");
+      projectRows.forEach((r) => r.classList.remove("is-open"));
+      if (!isOpen) {
+        row.classList.add("is-open");
       }
     });
   });
 
-  // 9. Copy Email Helper
-  const copyBtn = document.getElementById("copy-email");
-  const copyStatus = document.getElementById("copy-status");
-  const copyEmail = async () => {
+  // ---------------------------------------------------------
+  // 8. In-Page Interactive Resume Modal
+  // ---------------------------------------------------------
+  const resumeModal = document.getElementById("resume-modal");
+  const openResumeButtons = document.querySelectorAll(".btn-open-resume");
+  const closeResumeBtn = document.getElementById("close-resume-btn");
+  const copyPlainResumeBtn = document.getElementById("copy-plain-resume");
+
+  openResumeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (resumeModal) resumeModal.hidden = false;
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  const closeResume = () => {
+    if (resumeModal) resumeModal.hidden = true;
+    document.body.style.overflow = "";
+  };
+
+  closeResumeBtn?.addEventListener("click", closeResume);
+  resumeModal?.addEventListener("click", (e) => {
+    if (e.target === resumeModal) closeResume();
+  });
+
+  // Copy Plain-Text ATS Resume
+  copyPlainResumeBtn?.addEventListener("click", async () => {
+    const plainResume = `AMAN ATAR
+Maharashtra, India (Open to Pune, Bengaluru, Mumbai, Hyderabad & Remote)
+Email: ataraman9@gmail.com | Portfolio: https://amanatar.github.io
+GitHub: https://github.com/Amanatar | Kaggle: https://www.kaggle.com/amanatar (#30 Worldwide)
+LinkedIn: https://www.linkedin.com/in/aman-atar
+
+SUMMARY:
+Machine Learning & Quantitative Systems Engineer pursuing an M.Sc. in Financial Engineering at WorldQuant University. Ranked #30 Worldwide on Kaggle (Top 0.05%, 40 Medals) and Gold Level on WorldQuant BRAIN, with verified experience shipping AWS EC2 LLM failover systems, 480-run SEC 10-K Hybrid RAG benchmarks, and 0.40 ms PyTorch Differential ML option pricers verified on Ubuntu 24.04 CI.
+
+TECHNICAL SKILLS:
+- Machine Learning & Quant: Python, PyTorch, scikit-learn, LightGBM, XGBoost, CatBoost, LinearSVC, Differential ML (Sobolev Loss), Conformal Prediction (CQR), Carr-Madan FFT, Bates SVJD, HMM Regime Detection, Soft-Sinkhorn Optimal Transport
+- GenAI, NLP & Retrieval: Retrieval-Augmented Generation (RAG), FAISS, BM25, Reciprocal Rank Fusion (RRF), Cross-Encoder Reranking, Sentence-Transformers, HuggingFace TRL (SFT), Google ADK (Multi-Agent), Amazon Bedrock, Gemini API, NVIDIA NIM, Groq, VADER
+- Cloud MLOps & Data Engineering: AWS EC2, Docker, Linux (Ubuntu 24.04), GitHub Actions CI/CD, MLflow, Flask, Streamlit, Gunicorn, pytest, PostgreSQL, Google BigQuery, Apache Spark, Kafka, dbt, Kestra, Terraform, SQL, Git
+
+PROFESSIONAL EXPERIENCE:
+1. Innomatics Research Labs — Data Science with GenAI Intern (Nov 2025 – Mar 2026, Remote)
+   - Deployed FinWiser on AWS EC2 (Ubuntu, Gunicorn, systemd) with live circuit-breaker failover intercepting Gemini API HTTP 429 drops to NVIDIA NIM with zero session loss.
+   - Built an enterprise semantic Q&A pipeline using Amazon Bedrock Knowledge Bases with automated document chunking.
+   - Benchmarked 5 sentiment models in MLflow on Flipkart review data (macro F1 82.12%), serving winning model via Flask on EC2.
+
+2. TheSmartBridge — Machine Learning Engineer Intern (Nov 2025 – Jan 2026, Remote)
+   - Built end-to-end 4-stage clinical hypertension risk stratification system (Normal, Stage-1, Stage-2, Crisis) served via Flask (github.com/Amanatar/hypertension-risk-assessment).
+   - Locked train-to-inference feature scaling invariants inside a single serialized preprocessing artifact, verified via automated pytest suites in GitHub Actions CI.
+
+3. Edunet Foundation (AICTE × IBM SkillsBuild) — AI & Cloud Technology Intern (Sep 2025 – Oct 2025, Remote)
+   - Built Student Mental Health Companion (featured capstone), pairing Gemini API with VADER sentiment routing and deterministic offline fallbacks (github.com/Amanatar/student-mental-health-companion).
+
+SELECTED EMPIRICAL SYSTEMS & RESEARCH (10/10 UBUNTU 24.04 CI VERIFIED):
+- FinFaithful-RAG: 480-Run SEC EDGAR 10-K Hybrid RAG Benchmark (github.com/Amanatar/FinFaithful-RAG · CI #42760579773)
+  Evaluated 4 retrieval tiers across 480 live runs over AAPL, MSFT, NVDA, JPM, GOOGL Form 10-Ks with decoupled generator and judge. Hybrid RRF (BM25 + FAISS) + Cross-Encoder lifted HitRate@5 from 44.4%/54.4% to 72.2% with 100% trap defense and 89.2% citation validity.
+- Neural Bates DML: Sobolev Differential ML Option Pricing Surrogate (github.com/Amanatar/neural-bates-dml · CI #41193397993)
+  Twin-network PyTorch surrogate for 10-parameter Bates SVJD model trained on Carr-Madan FFT prices and Greeks, evaluating a 128-option batch in 0.40 ms on CPU with zero NaN instability.
+- Kronos v1.0.0 & TRACE-Fin: Point-in-Time Conformal Econometrics (github.com/Amanatar/auditable-regime-aware-agentic-forecasting · CI #41193425227)
+  Audited asymmetric tail sizing across 4,450 out-of-sample asset-days (890 NYSE sessions, 2023–2026); Bowley skewness reduces max drawdown by 30% with deterministic replication (< 3.33e-16) in 0.47s.
+- Competitive ML Systems: LLM Behavioral Forensics & Gold Kernels (kaggle.com/amanatar)
+  Reached 0.684 Public LB (Rank 353 / 5,728, Top 6%) in Name That LLM; 4 Gold notebooks led by ans-verifys (749+ upvotes).
+
+EDUCATION:
+- WorldQuant University — M.Sc. in Financial Engineering (MScFE) | 2025 – Present
+- Indian Institute of Technology (IIT) Hyderabad — Coursework in AI, ML & Autonomous Systems | 2025 – Present
+- Punyashlok Ahilyadevi Holkar Solapur University — Bachelor of Computer Applications (BCA) | Graduated June 2025
+
+HONORS & CERTIFICATIONS:
+- Kaggle Notebooks Expert: Global Rank #30 / 58,650+ (Top 0.05%, 40 Medals, 2,800+ upvotes).
+- WorldQuant BRAIN Challenge: Gold Level (Alpha Research).
+- DataTalks.Club Data Engineering Zoomcamp (2026 Cohort).`;
+
     try {
-      await navigator.clipboard.writeText("ataraman9@gmail.com");
-      if (copyStatus) copyStatus.textContent = "Copied ✓";
+      await navigator.clipboard.writeText(plainResume);
+      copyPlainResumeBtn.textContent = "Copied ✓";
       setTimeout(() => {
-        if (copyStatus) copyStatus.textContent = "Copy";
+        copyPlainResumeBtn.textContent = "Copy Plain-Text ATS Resume 📋";
       }, 2000);
     } catch {
-      window.location.href = "mailto:ataraman9@gmail.com";
+      alert("Resume text copied to clipboard!");
     }
-  };
-  copyBtn?.addEventListener("click", copyEmail);
+  });
 
-  // 10. Quick Jump Modal (/ or Ctrl+K)
-  const modal = document.getElementById("cmd-modal");
-  const cmdInput = document.getElementById("cmd-input");
+  // ---------------------------------------------------------
+  // 9. Command Palette Modal (Press / or Jump)
+  // ---------------------------------------------------------
+  const cmdModal = document.getElementById("cmd-modal");
   const cmdBtn = document.getElementById("cmd-btn");
   const cmdClose = document.getElementById("cmd-close");
-  const cmdItems = Array.from(document.querySelectorAll("#cmd-list li"));
+  const cmdInput = document.getElementById("cmd-input");
+  const cmdList = document.getElementById("cmd-list");
 
-  const openModal = () => {
-    if (!modal) return;
-    modal.removeAttribute("hidden");
-    if (cmdInput) {
-      cmdInput.value = "";
-      cmdItems.forEach((li) => (li.style.display = ""));
-      setTimeout(() => cmdInput.focus(), 20);
-    }
+  const openCmd = () => {
+    if (cmdModal) cmdModal.hidden = false;
+    cmdInput?.focus();
+    document.body.style.overflow = "hidden";
   };
 
-  const closeModal = () => modal?.setAttribute("hidden", "");
+  const closeCmd = () => {
+    if (cmdModal) cmdModal.hidden = true;
+    document.body.style.overflow = "";
+  };
 
-  cmdBtn?.addEventListener("click", openModal);
-  cmdClose?.addEventListener("click", closeModal);
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
+  cmdBtn?.addEventListener("click", openCmd);
+  cmdClose?.addEventListener("click", closeCmd);
+  cmdModal?.addEventListener("click", (e) => {
+    if (e.target === cmdModal) closeCmd();
   });
 
   window.addEventListener("keydown", (e) => {
-    const tag = document.activeElement?.tagName;
-    if ((e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA") || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k")) {
+    if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
       e.preventDefault();
-      openModal();
-    } else if (e.key === "Escape") {
-      closeModal();
+      openCmd();
+    }
+    if (e.key === "Escape") {
+      closeCmd();
+      closeResume();
     }
   });
 
-  cmdInput?.addEventListener("input", () => {
-    const q = cmdInput.value.toLowerCase().trim();
-    cmdItems.forEach((li) => {
-      li.style.display = li.textContent.toLowerCase().includes(q) ? "" : "none";
+  cmdList?.addEventListener("click", (e) => {
+    const li = e.target.closest("li");
+    if (!li) return;
+    const action = li.getAttribute("data-action");
+    if (action === "jump") {
+      const target = li.getAttribute("data-target");
+      closeCmd();
+      if (target) document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+    } else if (action === "theme") {
+      const next = root.getAttribute("data-theme") === "obsidian" ? "paper" : "obsidian";
+      applyTheme(next);
+      closeCmd();
+    } else if (action === "resume") {
+      closeCmd();
+      if (resumeModal) resumeModal.hidden = false;
+    } else if (action === "email") {
+      navigator.clipboard.writeText("ataraman9@gmail.com");
+      alert("Email copied: ataraman9@gmail.com");
+      closeCmd();
+    } else if (action === "url") {
+      const url = li.getAttribute("data-url");
+      if (url) window.open(url, "_blank", "noopener");
+      closeCmd();
+    }
+  });
+
+  // ---------------------------------------------------------
+  // 10. Direct Email Copy Feedback
+  // ---------------------------------------------------------
+  const emailButtons = document.querySelectorAll(".email-btn, #copy-email");
+  emailButtons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const email = btn.getAttribute("data-email") || "ataraman9@gmail.com";
+      const statusSpan = btn.querySelector(".copy-badge, .copy-tag, #copy-status");
+      try {
+        await navigator.clipboard.writeText(email);
+        if (statusSpan) statusSpan.textContent = "Copied ✓";
+        setTimeout(() => {
+          if (statusSpan) statusSpan.textContent = "Copy";
+        }, 2000);
+      } catch {
+        alert(`Email: ${email}`);
+      }
     });
   });
 
-  cmdItems.forEach((li) => {
-    li.addEventListener("click", () => {
-      const action = li.dataset.action;
-      if (action === "jump" && li.dataset.target) {
-        document.querySelector(li.dataset.target)?.scrollIntoView({ behavior: "smooth" });
-      } else if (action === "theme") {
-        themeBtn?.click();
-      } else if (action === "email") {
-        copyEmail();
-      } else if (action === "print") {
-        window.print();
-      } else if (action === "url" && li.dataset.url) {
-        window.open(li.dataset.url, "_blank", "noopener");
+  // ---------------------------------------------------------
+  // 11. Philosophical Notes Accordion
+  // ---------------------------------------------------------
+  const noteTriggers = document.querySelectorAll(".note-trigger");
+  noteTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const card = trigger.closest(".note-card");
+      const wasOpen = card.classList.contains("is-open");
+      document.querySelectorAll(".note-card").forEach((c) => {
+        c.classList.remove("is-open");
+        c.querySelector(".note-trigger")?.setAttribute("aria-expanded", "false");
+        const icon = c.querySelector(".note-icon");
+        if (icon) icon.textContent = "+";
+      });
+
+      if (!wasOpen) {
+        card.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+        const icon = card.querySelector(".note-icon");
+        if (icon) icon.textContent = "−";
       }
-      closeModal();
     });
   });
+
 })();

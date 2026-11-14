@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aman Atar — Master Resume (ATS 1-Page)</title>
+  <meta name="description" content="Aman Atar — Machine Learning & Quantitative Systems Engineer. MSc in Financial Engineering candidate at WorldQuant University, Kaggle #30 Worldwide." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 11mm;
+    }
+    :root {
+      --text: #1a1a1a;
+      --subtext: #333333;
+      --muted: #555555;
+      --rule: #cccccc;
+      --link: #004b87;
+      --bg: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #f4f4f6;
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9pt;
+      line-height: 1.32;
+      -webkit-font-smoothing: antialiased;
+    }
+    .action-bar {
+      max-width: 210mm;
+      margin: 1rem auto 0.5rem auto;
+      padding: 0.6rem 1rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .action-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: #0f172a;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: #1e293b;
+    }
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+    .resume-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto 2rem auto;
+      background: var(--bg);
+      padding: 9mm 12mm;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    header.resume-header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    h1.name {
+      font-size: 15.5pt;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #000000;
+      margin-bottom: 2pt;
+    }
+    .contact-line {
+      font-size: 8.2pt;
+      color: var(--subtext);
+      line-height: 1.35;
+    }
+    .contact-line a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .contact-line a:hover {
+      text-decoration: underline;
+    }
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #000000;
+      border-bottom: 0.75px solid var(--text);
+      padding-bottom: 1.5pt;
+      margin-top: 5pt;
+      margin-bottom: 3.5pt;
+    }
+    p.summary {
+      font-size: 8.8pt;
+      line-height: 1.32;
+      text-align: justify;
+    }
+    .skills-block {
+      font-size: 8.7pt;
+      line-height: 1.32;
+    }
+    .skills-block p {
+      margin-bottom: 1.5pt;
+    }
+    .skills-block strong {
+      color: #000000;
+    }
+    .exp-entry, .proj-entry, .edu-entry {
+      margin-bottom: 3.5pt;
+    }
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.9pt;
+    }
+    .entry-title {
+      font-weight: 700;
+      color: #000000;
+    }
+    .entry-date {
+      font-weight: 600;
+      font-size: 8.2pt;
+      color: var(--subtext);
+    }
+    .entry-subhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.4pt;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1.5pt;
+    }
+    ul.bullet-list {
+      list-style-type: disc;
+      margin-left: 12pt;
+      font-size: 8.6pt;
+      line-height: 1.28;
+    }
+    ul.bullet-list li {
+      margin-bottom: 1pt;
+      text-align: justify;
+    }
+    ul.bullet-list li:last-child {
+      margin-bottom: 0;
+    }
+    .edu-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 8.8pt;
+      margin-bottom: 1pt;
+    }
+    .edu-sub {
+      font-size: 8.2pt;
+      color: var(--muted);
+      margin-bottom: 2pt;
+    }
+    .cert-line {
+      font-size: 8.7pt;
+      line-height: 1.3;
+      margin-bottom: 2pt;
+    }
+    .cert-line strong {
+      color: #000000;
+    }
+    a.repo-link {
+      color: var(--link);
+      text-decoration: none;
+      font-size: 8.2pt;
+      margin-left: 4pt;
+    }
+    a.repo-link:hover {
+      text-decoration: underline;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .action-bar {
+        display: none !important;
+      }
+      .resume-sheet {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="action-bar" aria-label="Resume Actions">
+    <div>
+      <a href="index.html" class="btn btn-secondary">← Back to Portfolio</a>
+    </div>
+    <div class="action-links">
+      <button onclick="window.print()" class="btn btn-secondary">🖨️ Print / Save as PDF</button>
+      <a href="Aman_Atar_Resume.pdf" download="Aman_Atar_Resume.pdf" class="btn btn-primary">Download 1-Page PDF (Aman_Atar_Resume.pdf) ↓</a>
+    </div>
+  </aside>
+
+  <main class="resume-sheet">
+    <!-- HEADER -->
+    <header class="resume-header">
+      <h1 class="name">AMAN ATAR</h1>
+      <div class="contact-line">
+        Maharashtra, India (Open to Pune, Bengaluru, Mumbai, Hyderabad &amp; Remote) &middot;
+        <a href="mailto:ataraman9@gmail.com">ataraman9@gmail.com</a> &middot;
+        <a href="https://amanatar.github.io">amanatar.github.io</a>
+      </div>
+      <div class="contact-line">
+        <a href="https://github.com/Amanatar">github.com/Amanatar</a> &middot;
+        <a href="https://www.kaggle.com/amanatar">kaggle.com/amanatar</a> (<strong>#30 Worldwide</strong>) &middot;
+        <a href="https://www.linkedin.com/in/aman-atar">linkedin.com/in/aman-atar</a>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section>
+      <h2 class="section-title">Summary</h2>
+      <p class="summary">
+        Machine Learning &amp; Quantitative Systems Engineer pursuing an <strong>M.Sc. in Financial Engineering at WorldQuant University</strong>. Ranked <strong>#30 Worldwide on Kaggle (Top 0.05%, 40 Medals)</strong> and <strong>Gold Level on WorldQuant BRAIN</strong>, with verified experience shipping AWS EC2 LLM failover systems, 480-run SEC 10-K Hybrid RAG benchmarks, and 0.40 ms PyTorch Differential ML option pricers verified on Ubuntu 24.04 CI.
+      </p>
+    </section>
+
+    <!-- TECHNICAL SKILLS -->
+    <section>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-block">
+        <p><strong>Machine Learning &amp; Quant:</strong> Python, PyTorch, scikit-learn, LightGBM, XGBoost, CatBoost, LinearSVC, Differential ML (Sobolev Loss), Conformal Prediction (CQR), Carr-Madan FFT, Bates SVJD, HMM Regime Detection, Soft-Sinkhorn Optimal Transport</p>
+        <p><strong>GenAI, NLP &amp; Retrieval:</strong> Retrieval-Augmented Generation (RAG), FAISS, BM25, Reciprocal Rank Fusion (RRF), Cross-Encoder Reranking, Sentence-Transformers, HuggingFace TRL (SFT), Google ADK (Multi-Agent), Amazon Bedrock, Gemini API, NVIDIA NIM, Groq, VADER</p>
+        <p><strong>Cloud MLOps &amp; Data Engineering:</strong> AWS EC2, Docker, Linux (Ubuntu 24.04), GitHub Actions CI/CD, MLflow, Flask, Streamlit, Gunicorn, pytest, PostgreSQL, Google BigQuery, Apache Spark, Kafka, dbt, Kestra, Terraform, SQL, Git</p>
+      </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    <section>
+      <h2 class="section-title">Professional Experience</h2>
+
+      <div class="exp-entry">
+        <div class="entry-head">
+          <span class="entry-title">Innomatics Research Labs</span>
+          <span class="entry-date">Nov 2025 – Mar 2026</span>
+        </div>
+        <div class="entry-subhead">
+          <span>Data Science with GenAI Intern</span>
+          <span>Hyderabad, India (Remote)</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Deployed <strong>FinWiser</strong> on <strong>AWS EC2 (Ubuntu, Gunicorn, systemd)</strong> with a live circuit-breaker failover that intercepts Gemini API HTTP 429 rate-limit drops and routes traffic to <strong>NVIDIA NIM (Kimi &amp; Llama 3.1 70B)</strong> with zero session loss.</li>
+          <li>Built an enterprise semantic Q&amp;A pipeline using <strong>Amazon Bedrock Knowledge Bases</strong> with automated document chunking, alongside a structured YouTube-transcript-to-PDF synthesis pipeline.</li>
+          <li>Benchmarked 5 sentiment-classification models in <strong>MLflow</strong> on imbalanced Flipkart review data, optimizing hyperparameter sweeps on macro F1-score (82.12% confidence) and serving the winning model via Flask on EC2.</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry">
+        <div class="entry-head">
+          <span class="entry-title">TheSmartBridge</span>
+          <span class="entry-date">Nov 2025 – Jan 2026</span>
+        </div>
+        <div class="entry-subhead">
+          <span>Machine Learning Engineer Intern</span>
+          <span>Hyderabad, India (Remote)</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Built an end-to-end 4-stage clinical hypertension risk stratification system (<strong>Normal, Stage-1, Stage-2, Crisis</strong>) served via a calibrated <strong>Flask</strong> web interface (<a href="https://github.com/Amanatar/hypertension-risk-assessment" class="repo-link">github.com/Amanatar/hypertension-risk-assessment</a>).</li>
+          <li>Locked train-to-inference feature scaling invariants inside a single serialized preprocessing artifact to prevent distribution drift across clinical classes, verified via automated <strong>pytest</strong> HTTP 200 smoke suites in GitHub Actions CI.</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry">
+        <div class="entry-head">
+          <span class="entry-title">Edunet Foundation (AICTE &times; IBM SkillsBuild)</span>
+          <span class="entry-date">Sep 2025 – Oct 2025</span>
+        </div>
+        <div class="entry-subhead">
+          <span>AI &amp; Cloud Technology Intern</span>
+          <span>Remote</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Built <strong>Student Mental Health Companion</strong> (featured AICTE &times; IBM capstone), pairing the <strong>Gemini API</strong> with real-time <strong>VADER</strong> compound sentiment routing and deterministic offline crisis-helpline fallbacks (<a href="https://github.com/Amanatar/student-mental-health-companion" class="repo-link">github.com/Amanatar/student-mental-health-companion</a>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SELECTED EMPIRICAL SYSTEMS & RESEARCH -->
+    <section>
+      <h2 class="section-title">Selected Empirical Systems &amp; Research (10/10 Ubuntu 24.04 CI Verified)</h2>
+
+      <div class="proj-entry">
+        <div class="entry-head">
+          <span class="entry-title">FinFaithful-RAG: 480-Run SEC EDGAR 10-K Hybrid RAG Benchmark</span>
+          <span class="entry-date"><a href="https://github.com/Amanatar/FinFaithful-RAG" class="repo-link">github.com/Amanatar/FinFaithful-RAG</a> &middot; CI #42760579773</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Evaluated 4 retrieval tiers across <strong>480 live runs</strong> (120 audited questions over <strong>AAPL, MSFT, NVDA, JPM, GOOGL</strong> Form 10-K filings) using a decoupled generator (<code>qwen3.8-27b</code>) and independent judge (<code>gpt-oss-20b</code>).</li>
+          <li>Engineered Markdown table-header replication, per-ticker quota routing, and <strong>Hybrid RRF (BM25 + FAISS) + Cross-Encoder reranking</strong>, lifting <strong>HitRate@5 from 44.4% (FAISS) and 54.4% (BM25) to 72.2%</strong> and doubling cross-company comparative recall (<strong>33.3% &rarr; 66.7%</strong>).</li>
+          <li>Raised grounded answer faithfulness from <strong>2.66/5.0</strong> (ungrounded baseline, 0.0% fact coverage) to <strong>4.12/5.0</strong> (<strong>89.2%</strong> inline citation validity) and achieved <strong>100.0% abstention accuracy</strong> across 30 adversarial hallucination traps.</li>
+        </ul>
+      </div>
+
+      <div class="proj-entry">
+        <div class="entry-head">
+          <span class="entry-title">Neural Bates DML: Sobolev Differential ML Option Pricing Surrogate</span>
+          <span class="entry-date"><a href="https://github.com/Amanatar/neural-bates-dml" class="repo-link">github.com/Amanatar/neural-bates-dml</a> &middot; CI #41193397993</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Trained a twin-network <strong>PyTorch</strong> surrogate for the 10-parameter <strong>Bates SVJD</strong> jump-diffusion model on analytical <strong>Carr-Madan FFT</strong> option prices and exact Greeks (&Delta;, &Nu;, Jacobians), evaluating a <strong>128-option batch in 0.40 ms on CPU</strong> with zero NaN instability.</li>
+        </ul>
+      </div>
+
+      <div class="proj-entry">
+        <div class="entry-head">
+          <span class="entry-title">Kronos v1.0.0 &amp; TRACE-Fin: Point-in-Time Conformal Econometrics</span>
+          <span class="entry-date"><a href="https://github.com/Amanatar/auditable-regime-aware-agentic-forecasting" class="repo-link">github.com/Amanatar/auditable-regime-aware-agentic-forecasting</a> &middot; CI #41193425227</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Audited asymmetric tail sizing across <strong>4,450 out-of-sample asset-days (890 NYSE sessions, 2023–2026)</strong> net of 25 bps costs; Bowley quantile skewness sizing reduces maximum drawdown by <strong>30% (-0.14% vs. -0.20%)</strong> with deterministic replication (&lt; 3.33 &times; 10<sup>-16</sup>) in <strong>0.47s</strong>.</li>
+          <li>Enforced strict point-in-time cutoff invariance (<code>cutoff_validator.py</code>, 0 lookahead leakage), HMM regime detection, and calibrated <strong>90% (&alpha; = 0.10) conformal intervals</strong> in <strong>0.04s</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="proj-entry">
+        <div class="entry-head">
+          <span class="entry-title">Competitive ML Systems: LLM Behavioral Forensics &amp; Gold Kernels</span>
+          <span class="entry-date"><a href="https://www.kaggle.com/amanatar" class="repo-link">kaggle.com/amanatar</a></span>
+        </div>
+        <ul class="bullet-list">
+          <li>Reached <strong>0.684 Public LB (Rank 353 / 5,728, Top 6%)</strong> in <em>Name That LLM</em> via <code>Q3-8B</code>/<code>WeMM-4B</code> embeddings, Soft-Sinkhorn transport, ATLAS subspace scoring, and 4-view <code>LinearSVC</code> (539k sparse features); built <code>ionwraith-v18</code> over 324,884 MS/MS spectra in <em>CASMI 2026</em>; authored 4 Gold notebooks led by <code>ans-verifys</code> (<strong>749+ upvotes</strong>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-entry">
+        <div class="edu-line">
+          <span><strong>WorldQuant University</strong> &mdash; <em>M.Sc. in Financial Engineering (MScFE)</em></span>
+          <span><strong>2025 – Present</strong></span>
+        </div>
+        <div class="edu-sub">Financial Econometrics (MScFE 610), Derivative Pricing (MScFE 620), Stochastic Modeling</div>
+      </div>
+      <div class="edu-entry">
+        <div class="edu-line">
+          <span><strong>Indian Institute of Technology (IIT) Hyderabad</strong> &mdash; <em>Coursework in AI, Machine Learning &amp; Autonomous Systems</em></span>
+          <span><strong>2025 – Present</strong></span>
+        </div>
+      </div>
+      <div class="edu-entry">
+        <div class="edu-line">
+          <span><strong>Punyashlok Ahilyadevi Holkar Solapur University</strong> &mdash; <em>Bachelor of Computer Applications (BCA)</em></span>
+          <span><strong>Graduated June 2025</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HONORS & CERTIFICATIONS -->
+    <section>
+      <h2 class="section-title">Honors &amp; Certifications</h2>
+      <p class="cert-line"><strong>Kaggle Notebooks Expert &mdash; Global Rank #30 / 58,650+ (Top 0.05%, Peak #28):</strong> 40 Medals (4 Gold, 5 Silver, 31 Bronze) &amp; 2,800+ upvotes.</p>
+      <p class="cert-line"><strong>WorldQuant BRAIN Challenge &mdash; Gold Level (2025 – Present):</strong> Market-neutral, low-turnover cross-sectional equity alpha research.</p>
+      <p class="cert-line"><strong>DataTalks.Club Data Engineering Zoomcamp (2026 Cohort):</strong> Docker, PostgreSQL, Terraform, BigQuery, Kestra, dbt, Spark, Kafka.</p>
+    </section>
+  </main>
+
+</body>
+</html>
