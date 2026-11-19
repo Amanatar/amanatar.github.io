@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aman_Atar_Resume</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 6mm 10mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      color: #111215;
+      background: #ffffff;
+      font-size: 8.5pt;
+      line-height: 1.26;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 6mm 10mm;
+    }
+    .print-bar {
+      background: #111215;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.5pt;
+    }
+    .print-bar button {
+      background: #10b981;
+      color: #062118;
+      border: 0;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @media print {
+      body { padding: 0; max-width: none; }
+      .print-bar { display: none !important; }
+    }
+    header {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    h1 {
+      font-size: 15.5pt;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1px;
+    }
+    .contact-line {
+      font-size: 8.2pt;
+      color: #222;
+      margin-bottom: 1px;
+    }
+    .contact-line a {
+      color: #111215;
+      text-decoration: none;
+    }
+    [contenteditable="true"] {
+      border-bottom: 1px dashed #888;
+      padding: 0 2px;
+    }
+    @media print {
+      [contenteditable="true"] { border-bottom: none; }
+    }
+    h2 {
+      font-size: 9.2pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1.1px solid #111215;
+      padding-bottom: 1px;
+      margin-top: 4px;
+      margin-bottom: 2.5px;
+    }
+    p {
+      margin-bottom: 2px;
+    }
+    ul {
+      padding-left: 13px;
+      margin-bottom: 2px;
+    }
+    li {
+      margin-bottom: 1.1px;
+    }
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 2px;
+    }
+    .entry-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-style: italic;
+      color: #2b2d33;
+      margin-bottom: 1px;
+    }
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5px;
+    }
+    .mono {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="print-bar">
+    <span>Click <strong>+91-XXXXXXXXXX</strong> below to enter your phone number, then export as a 1-page vector PDF.</span>
+    <button type="button" onclick="window.print()">Save / Print 1-Page PDF</button>
+  </div>
+
+  <header>
+    <h1>AMAN ATAR</h1>
+    <div class="contact-line">
+      Maharashtra, India (Open to Pune, Bengaluru, Mumbai, Hyderabad &amp; Remote) &middot;
+      <span contenteditable="true">+91-XXXXXXXXXX</span> &middot;
+      <a href="mailto:ataraman9@gmail.com">ataraman9@gmail.com</a>
+    </div>
+    <div class="contact-line">
+      <a href="https://amanatar.github.io">amanatar.github.io</a> &middot;
+      <a href="https://github.com/Amanatar">github.com/Amanatar</a> &middot;
+      <a href="https://www.kaggle.com/amanatar">kaggle.com/amanatar (#30 Worldwide)</a> &middot;
+      <a href="https://www.linkedin.com/in/aman-atar">linkedin.com/in/aman-atar</a>
+    </div>
+  </header>
+
+  <h2>Summary</h2>
+  <p>
+    Machine Learning &amp; Quantitative Systems Engineer pursuing an <strong>M.Sc. in Financial Engineering at WorldQuant University</strong>. Ranked <strong>#30 Worldwide on Kaggle (Top 0.05%, 40 Medals)</strong> and <strong>Gold Level on WorldQuant BRAIN</strong>, with verified experience shipping AWS EC2 LLM failover APIs, 480-run SEC 10-K Hybrid RAG benchmarks, and 0.40 ms PyTorch Differential ML option pricers verified on Ubuntu 24.04 CI.
+  </p>
+
+  <h2>Technical Skills</h2>
+  <ul>
+    <li><strong>Machine Learning &amp; Quant:</strong> Python, PyTorch, scikit-learn, LightGBM, XGBoost, CatBoost, LinearSVC, Differential ML (Sobolev Loss), Conformal Prediction (CQR), Carr-Madan FFT, Bates SVJD, HMM Regime Detection, Soft-Sinkhorn Optimal Transport</li>
+    <li><strong>GenAI, Agentic AI &amp; Retrieval:</strong> Retrieval-Augmented Generation (RAG), FAISS, BM25, Reciprocal Rank Fusion (RRF), Cross-Encoder Reranking, Sentence-Transformers, Hugging Face TRL (SFT), Google ADK (Multi-Agent), Amazon Bedrock, Gemini API, NVIDIA NIM, Groq, VADER</li>
+    <li><strong>Backend, Cloud MLOps &amp; Data:</strong> Flask, FastAPI, REST APIs, AWS EC2, Docker, Linux (Ubuntu 24.04), GitHub Actions CI/CD, MLflow, Streamlit, Gunicorn, pytest, PostgreSQL, Google BigQuery, Apache Spark, Kafka, dbt, Kestra, Terraform, SQL, Git</li>
+  </ul>
+
+  <h2>Professional Experience</h2>
+
+  <div class="entry-head">
+    <strong>Innomatics Research Labs</strong>
+    <span>Nov 2025 &ndash; Mar 2026</span>
+  </div>
+  <div class="entry-sub">
+    <span>Data Science with GenAI Intern</span>
+    <span>Hyderabad, India (Remote)</span>
+  </div>
+  <ul>
+    <li>Deployed <strong>FinWiser</strong> on <strong>AWS EC2 (Ubuntu, Gunicorn, systemd)</strong> with a live circuit-breaker failover that intercepts Gemini API HTTP 429 rate-limit drops and routes traffic to <strong>NVIDIA NIM (Kimi &amp; Llama 3.1 70B)</strong> with zero session loss.</li>
+    <li>Built an enterprise semantic Q&amp;A REST pipeline using <strong>Amazon Bedrock Knowledge Bases</strong> with automated document chunking, alongside a structured YouTube-transcript-to-PDF synthesis pipeline.</li>
+    <li>Benchmarked 5 sentiment-classification models in <strong>MLflow</strong> on imbalanced Flipkart review data, optimizing hyperparameter sweeps on macro F1-score (82.12% confidence) and serving the winning model via Flask on EC2 (<span class="mono">github.com/Amanatar/IRL_Data_Science_-_GenAi_Internship</span>).</li>
+  </ul>
+
+  <div class="entry-head">
+    <strong>TheSmartBridge</strong>
+    <span>Nov 2025 &ndash; Jan 2026</span>
+  </div>
+  <div class="entry-sub">
+    <span>Machine Learning Engineer Intern</span>
+    <span>Hyderabad, India (Remote)</span>
+  </div>
+  <ul>
+    <li>Built an end-to-end 4-stage clinical hypertension risk stratification system (<strong>Normal, Stage-1, Stage-2, Crisis</strong>) served via a calibrated <strong>Flask</strong> web interface and REST endpoint (<span class="mono">github.com/Amanatar/hypertension-risk-assessment</span>).</li>
+    <li>Locked train-to-inference feature scaling invariants inside a single serialized preprocessing artifact to eliminate distribution drift across clinical classes, verified via automated <strong>pytest</strong> HTTP 200 smoke suites in GitHub Actions CI.</li>
+  </ul>
+
+  <div class="entry-head">
+    <strong>Edunet Foundation (AICTE &times; IBM SkillsBuild)</strong>
+    <span>Sep 2025 &ndash; Oct 2025</span>
+  </div>
+  <div class="entry-sub">
+    <span>AI &amp; Cloud Technology Intern</span>
+    <span>Remote, India</span>
+  </div>
+  <ul>
+    <li>Built <strong>Student Mental Health Companion</strong> (featured AICTE &times; IBM capstone), pairing the <strong>Gemini API</strong> with real-time <strong>VADER</strong> compound sentiment routing and deterministic offline crisis-helpline fallbacks (<span class="mono">github.com/Amanatar/student-mental-health-companion</span>).</li>
+  </ul>
+
+  <h2>Selected Empirical Systems &amp; Research (10/10 Ubuntu 24.04 CI Verified)</h2>
+
+  <div class="entry-head">
+    <span><strong>FinFaithful-RAG: 480-Run SEC EDGAR 10-K Hybrid RAG Benchmark</strong> | <em>FAISS, BM25, Cross-Encoder</em></span>
+    <span class="mono">github.com/Amanatar/FinFaithful-RAG</span>
+  </div>
+  <ul>
+    <li>Evaluated 4 retrieval tiers across <strong>480 live runs</strong> (120 audited questions over <strong>AAPL, MSFT, NVDA, JPM, GOOGL</strong> Form 10-K filings) using a decoupled generator (<span class="mono">qwen3.8-27b</span>) and independent judge (<span class="mono">gpt-oss-20b</span>) (CI #42760579773).</li>
+    <li>Engineered Markdown table-header replication, per-ticker quota routing, and <strong>Hybrid RRF (BM25 + FAISS) + Cross-Encoder reranking</strong>, lifting <strong>HitRate@5 from 44.4% (FAISS) and 54.4% (BM25) to 72.2%</strong> and doubling cross-company recall (<strong>33.3% &rarr; 66.7%</strong>).</li>
+    <li>Raised grounded answer faithfulness from <strong>2.66/5.0</strong> (ungrounded baseline, 0.0% fact coverage) to <strong>4.12/5.0</strong> (<strong>89.2%</strong> inline citation validity) and achieved <strong>100.0% abstention accuracy</strong> across 30 adversarial hallucination traps.</li>
+  </ul>
+
+  <div class="entry-head">
+    <span><strong>Neural Bates DML: Sobolev Option Pricing Surrogate</strong> | <em>PyTorch, Carr-Madan FFT, Sobolev DML</em></span>
+    <span class="mono">github.com/Amanatar/neural-bates-dml</span>
+  </div>
+  <ul>
+    <li>Trained a twin-network <strong>PyTorch</strong> surrogate for the 10-parameter <strong>Bates SVJD</strong> jump-diffusion model on analytical Carr-Madan FFT option prices and exact Greeks (<strong>&Delta;, V, Jacobians</strong>), evaluating a <strong>128-option batch in 0.40 ms on CPU</strong> with zero NaN instability (CI #41193397993).</li>
+  </ul>
+
+  <div class="entry-head">
+    <span><strong>Kronos v1.0.0 &amp; TRACE-Fin: Point-in-Time Conformal Econometrics</strong> | <em>Python, Conformal CQR</em></span>
+    <span class="mono">github.com/Amanatar/TRACE-Fin</span>
+  </div>
+  <ul>
+    <li>Audited asymmetric tail sizing across <strong>4,450 out-of-sample asset-days (890 NYSE sessions, 2023&ndash;2026)</strong> net of 25 bps costs; Bowley quantile skewness sizing cut maximum drawdown by <strong>30% (-0.14% vs. -0.20%)</strong> with deterministic replication (&lt; 3.33e-16) in <strong>0.47s</strong>.</li>
+    <li>Enforced strict point-in-time cutoff invariance (<span class="mono">cutoff_validator.py</span>, 0 lookahead leakage), HMM regime detection, and calibrated <strong>90% (alpha = 0.10) conformal intervals</strong> in <strong>0.04s</strong> (CI #41193425227).</li>
+  </ul>
+
+  <div class="entry-head">
+    <span><strong>Competitive ML Systems &amp; Multi-Agent Workflows</strong> | <em>LinearSVC, Soft-Sinkhorn, Google ADK</em></span>
+    <span class="mono">kaggle.com/amanatar</span>
+  </div>
+  <ul>
+    <li>Reached <strong>0.684 Public LB (Rank 353 / 5,728, Top 6%)</strong> in <em>Name That LLM</em> via <span class="mono">Q3-8B</span>/<span class="mono">WeMM-4B</span> embeddings, Soft-Sinkhorn transport, ATLAS subspace scoring, and 4-view <span class="mono">LinearSVC</span> (539k sparse features); built <span class="mono">ionwraith-v18</span> over 324,884 MS/MS spectra in <em>CASMI 2026</em>; authored 4 Gold notebooks led by <span class="mono">ans-verifys</span> (<strong>749+ upvotes</strong>), alongside <strong>The Alpha Seeker</strong> multi-agent trading loop on Google ADK.</li>
+  </ul>
+
+  <h2>Education</h2>
+  <div class="edu-row">
+    <span><strong>WorldQuant University</strong> &mdash; <em>M.Sc. in Financial Engineering (MScFE)</em> (Econometrics MScFE 610, Derivative Pricing MScFE 620)</span>
+    <span>2025 &ndash; Present</span>
+  </div>
+  <div class="edu-row">
+    <span><strong>Indian Institute of Technology (IIT) Hyderabad</strong> &mdash; <em>Coursework in AI, Machine Learning &amp; Autonomous Systems</em></span>
+    <span>2025 &ndash; Feb 2026</span>
+  </div>
+  <div class="edu-row">
+    <span><strong>Punyashlok Ahilyadevi Holkar Solapur University</strong> &mdash; <em>Bachelor of Computer Applications (BCA)</em></span>
+    <span>Graduated June 2025</span>
+  </div>
+
+  <h2>Honors, Awards &amp; Certifications</h2>
+  <ul>
+    <li><strong>Kaggle Notebooks Expert &mdash; Global Rank #30 / 58,650+ (Top 0.05%, Peak #28):</strong> 40 Medals (4 Gold, 5 Silver, 31 Bronze) &amp; 2,800+ upvotes.</li>
+    <li><strong>WorldQuant BRAIN Challenge &mdash; Gold Level (2025 &ndash; Present):</strong> Market-neutral, low-turnover cross-sectional equity alpha research.</li>
+    <li><strong>DataTalks.Club Data Engineering Zoomcamp (2026 Cohort):</strong> Docker, PostgreSQL, Terraform, BigQuery, Kestra, dbt, Spark, Kafka.</li>
+  </ul>
+</body>
+</html>

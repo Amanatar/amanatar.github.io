@@ -849,7 +849,7 @@ SELECTED EMPIRICAL SYSTEMS & RESEARCH (10/10 UBUNTU 24.04 CI VERIFIED):
 
 EDUCATION:
 - WorldQuant University — M.Sc. in Financial Engineering (MScFE) | 2025 – Present
-- Indian Institute of Technology (IIT) Hyderabad — Coursework in AI, ML & Autonomous Systems | 2025 – Present
+- Indian Institute of Technology (IIT) Hyderabad — Coursework in AI, ML & Autonomous Systems | 2025 – Feb 2026
 - Punyashlok Ahilyadevi Holkar Solapur University — Bachelor of Computer Applications (BCA) | Graduated June 2025
 
 HONORS & CERTIFICATIONS:
